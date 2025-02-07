@@ -30,7 +30,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+
   const [step, setStep] = useState("login");
   const [otp, setOtp] = useState("");
   const [registrationData, setRegistrationData] = useState<RegistrationData | null>();
