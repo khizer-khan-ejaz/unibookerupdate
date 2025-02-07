@@ -7,8 +7,7 @@ import { Jost } from 'next/font/google';
 import Loader from '../components/common/Loader';
 import api from '../api/api';
 import { useAuth } from '@/context/AuthContext';
-import { Sidebar } from "flowbite-react";
-import { HiShoppingBag } from "react-icons/hi";
+
 import { Accordion, Nav } from "react-bootstrap";
 
 const jostFont = Jost({
@@ -276,32 +275,7 @@ const Index = () => {
   <h2>Car List</h2>
 </Col>
 
-<Col md={9} className='text-center border-left'>
 
-<div className="filter-container">
-  <div className="filter-item">
-    <span className="filter-label">Car Details</span>
-    <span className="filter-value">SUV</span>
-    <span className="filter-remove">&times;</span> 
-  </div>
-  <div className="filter-item">
-    <span className="filter-label">Car Details</span>
-    <span className="filter-value">Sedan</span>
-    <span className="filter-remove">&times;</span>
-  </div>
-  <div className="filter-item">
-    <span className="filter-label">Car Details</span>
-    <span className="filter-value">Hatchback</span>
-    <span className="filter-remove">&times;</span>
-  </div>
-  <div className="filter-item">
-    <span className="filter-label">Car Details</span>
-    <span className="filter-value">Luxury</span>
-    <span className="filter-remove">&times;</span>
-  </div>
-</div>
-
-</Col>
 
 <Col md={16} className='text-end'>
   <div>
