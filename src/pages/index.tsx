@@ -160,7 +160,7 @@ export default function Home() {
   const router = useRouter();
   const [homeData, setHomeData] = useState<HomeData | null>(null);
   const [locationClicked, setLocationClicked] = useState<string | undefined>(undefined); // eslint-disable-line
-  const [brandClicked, setBrandClicked] = useState<string | undefined>(undefined); // eslint-disable-line
+  
   const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
@@ -170,23 +170,11 @@ export default function Home() {
   const dropdownRef = useRef(null);
   
   
-    const formatDate = (date: Date) => {
-      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    };
     const calendarRef = useRef(null);
   
   
-    const handleInputClick1 = () => {
-      setIsOpen(true);
-    };
-  
-    const handleInputBlur1= () => {
-      setIsOpen(false);
-    };
-    const handleInputClick = () => setIsOpen(true);
-    const handleInputBlur = () => setTimeout(() => setIsOpen(false), 150);
-    const [formattedDateTime, setFormattedDateTime] = useState<string>("");
-  
+ 
+       
     // Handle calendar selection
     const handleDateChange = (range: Range, start: string, end: string) => {
       setStartDate(start);
@@ -256,15 +244,8 @@ export default function Home() {
     router.push('/items-list')
   };
 
-  const handleBrandClick = async (id: string) => {
-    setBrandClicked(id);
-    sessionStorage.setItem("selectedBrand", id);
-    router.push('/items-list');
-  };  
-
-  const saveSelectedCar = (car: MostViewedItem) => {
-    sessionStorage.setItem("selectedCar", JSON.stringify(car));
-  };
+  
+  
 
   if (loading) {
     return <Loader />;

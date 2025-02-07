@@ -84,8 +84,7 @@ interface HomeData {
 
 const CarCarousel = () => {
   const [homeData, setHomeData] = useState<HomeData | null>(null);
-  const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     async function fetchLocations() {
       try {
