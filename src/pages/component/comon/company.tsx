@@ -7,7 +7,6 @@ import Image from "next/image";
 import api from "../../api/hello";
 import styles from "@/styles/Home.module.css";
 
-
 interface Logo {
   id: string;
   name: string;
@@ -79,15 +78,7 @@ export default function LogoCarousel() {
 
     fetchData();
   }, []);
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow: <button className={styles.nextArrow}>Next</button>,
-    prevArrow: <button className={styles.prevArrow}>Prev</button>,
-  };
+
   return (
     <div className="w-full flex justify-center items-center py-4">
       {loading && <p>Loading logos...</p>}
@@ -95,7 +86,6 @@ export default function LogoCarousel() {
 
       {!loading && !error && logos.length > 0 && (
         <Swiper
-        {...settings}
           modules={[Navigation]}
           slidesPerView={4}
           spaceBetween={30}
@@ -104,24 +94,25 @@ export default function LogoCarousel() {
           className="w-full"
         >
           {homeData?.makes.map((make) => (
-            <SwiperSlide >
+            <SwiperSlide key={make.id}> {/* ✅ Corrected key placement */}
               <section className={styles.company_logos}>
-            <div className={styles.company_logos_row}>
-              
-                <div key={make.id}>
-                  <div className={styles.company_logos_div}  style={{ cursor: "pointer" }}>
-                    <Image
-                      src={make.imageURL}
-                      alt={make.name}
-                      width={100}
-                      height={100}
-                      layout="intrinsic"
-                    />
+                <div className={styles.company_logos_row}>
+                  <div>
+                    <div
+                      className={styles.company_logos_div}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <Image
+                        src={make.imageURL}
+                        alt={make.name}
+                        width={100}
+                        height={100}
+                        layout="intrinsic"
+                      />
+                    </div>
                   </div>
                 </div>
-            
-            </div>
-          </section>
+              </section>
             </SwiperSlide>
           ))}
         </Swiper>

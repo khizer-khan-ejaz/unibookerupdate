@@ -9,26 +9,29 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import api from "../../api/api"; // Ensure API is properly imported
 
+// ✅ Define an interface for the car object
+interface Car {
+  id: string;
+  name: string;
+  image: string;
+  item_rating: number;
+}
+
 interface CarCardProps {
   id: string;
   name: string;
   item_rating: number;
-  trips: number;
-  location?: string;
   image: string;
   price: number;
-  fees: number;
-  fuelType: string;
-  seats: number;
   is_in_wishlist?: boolean;
-  saveSelectedCar: (car: any) => void;
+  saveSelectedCar: (car: Car) => void; // ✅ Updated with a proper type
 }
 
 const CarCard: React.FC<CarCardProps> = ({
   id,
   name,
   item_rating,
- image,
+  image,
   price,
   is_in_wishlist = false,
   saveSelectedCar,
@@ -65,56 +68,56 @@ const CarCard: React.FC<CarCardProps> = ({
 
   return (
     <div className={styles.carCard}>
-    {/* Car Image */}
-    <div className={styles.carImage}>
-      <Image src={image} alt={name} width={300} height={200} />
-      <div className={styles.wishlist} onClick={handleWishlistToggle}>
-        <Image src={inWishlist ? heartfilled : wishlistIcon} alt="Wishlist" width={20} height={20} />
+      {/* Car Image */}
+      <div className={styles.carImage}>
+        <Image src={image} alt={name} width={300} height={200} />
+        <div className={styles.wishlist} onClick={handleWishlistToggle}>
+          <Image src={inWishlist ? heartfilled : wishlistIcon} alt="Wishlist" width={20} height={20} />
+        </div>
+      </div>
+
+      {/* Car Details */}
+      <div className={styles.carDetails}>
+        <div className={styles.rating}>
+          <span className={styles.ratingValue}>
+            {item_rating} <FaStar color="white" size={12} />
+          </span>
+          <span className={styles.trips}> | 28 Trips</span>
+        </div>
+
+        <div className={styles.priceRow}>
+          <div className={styles.carsitem}>
+            <Link
+              href={`/items/${id}`}
+              className={styles.carName}
+              onClick={() => saveSelectedCar({ id, name, image, item_rating })} // ✅ Properly typed function
+            >
+              {name}
+            </Link>
+            <p className={styles.carInfo}>Seats</p>
+          </div>
+          <div className={styles.carsitem}>
+            <span className={styles.price}>₹{price}/hr</span>
+            <span className={styles.fees}>₹46 excluding fees</span>
+          </div>
+        </div>
+
+        <hr className={styles.dotted} />
+
+        <div className={styles.caritemfooter}>
+          <div className={styles.locationRow}>
+            <FaMapMarkerAlt size={12} />
+            <span>8.5 km away</span>
+          </div>
+
+          {/* Features Badges */}
+          <div className={styles.badges}>
+            <span className={styles.badge}>ACTIVE FASTAG</span>
+            <span className={styles.badge}>HOME DELIVERY</span>
+          </div>
+        </div>
       </div>
     </div>
-
-    {/* Car Details */}
-    <div className={styles.carDetails}>
-      <div className={styles.rating}>
-        <span className={styles.ratingValue}>
-        {item_rating}  <FaStar color="white" size={12} /> 
-        </span>
-        <span className={styles.trips}> | 28 Trips</span>
-      </div>
-
-     
-
-      <div className={styles.priceRow}>
-     <div className={styles.carsitem}>
-      <Link href={`/items/${id}`} className={styles.carName} onClick={() => saveSelectedCar({ id, name, image, item_rating })}>
-        {name}
-      </Link>
-     
-      <p className={styles.carInfo}>
-         Seats
-      </p>
-      </div>
-      <div className={styles.carsitem}>
-        <span className={styles.price}>₹{price}/hr</span>
-        <span className={styles.fees}>₹46 excluding fees</span>
-        </div>      
-      </div>
-      <hr className={styles.dotted}></hr>
-<div className={styles.caritemfooter}>
-      <div className={styles.locationRow}>
-        <FaMapMarkerAlt size={12} />
-        <span>8.5 km away</span>
-      </div>
-
-      {/* Features Badges */}
-      <div className={styles.badges}>
-        <span className={styles.badge}>ACTIVE FASTAG</span>
-        <span className={styles.badge}>HOME DELIVERY</span>
-     
-      </div>
-      </div>
-    </div>
-  </div>
   );
 };
 

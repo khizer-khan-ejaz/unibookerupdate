@@ -27,12 +27,6 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   // Store times in "HH:mm" string format.
   const [startTime, setStartTime] = useState<string>("10:00");
   const [endTime, setEndTime] = useState<string>("18:00");
-  const [shownDate, setShownDate] = useState<Date>(today);
-  // Format date as "DD-MM-YYYY"
-  const formatDate = (date: Date | undefined) => {
-    if (!date) return "N/A";
-    return date.toLocaleDateString("en-GB").split("/").reverse().join("-");
-  };
 
   // Merge date with selected time (parses time strings like "10:00")
   const mergeDateWithTime = (date: Date | undefined, time: string): Date | null => {
@@ -95,15 +89,8 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
     }
   };
 
-  // Continue button handler, if needed
-  const handleContinue = () => {
-    console.log("Start Time:", startTime);
-    console.log("End Time:", endTime);
-    // Add your continue logic here
-  };
-
   return (
-    <div className=" pb-9 absolute z-20 mt-1 w-5/6 max-w-x border left-20 border-black overflow-hidden rounded-md bg-white shadow-lg">
+    <div className="pb-9 absolute z-20 mt-1 w-5/6 max-w-x border left-20 border-black overflow-hidden rounded-md bg-white shadow-lg">
       {/* Date Range Picker */}
       <DateRangePicker
         ranges={range}
@@ -113,16 +100,12 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
         minDate={today} // Prevent past date selection
         moveRangeOnFirstSelection={false} // Prevents auto-merging of months
         preventSnapRefocus={true} // Stops auto-jumping
-        onShownDateChange={(date) => setShownDate(date)}
         staticRanges={[]} 
         inputRanges={[]}
       />
 
       {/* Time Selection (Dual Slider) */}
       <TimeRangeSlider onTimeChange={handleTimeChange} />
-
-      {/* Optional Continue Button */}
-
     </div>
   );
 }
