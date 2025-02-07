@@ -10,7 +10,7 @@ import testimonial from '../Images/testimonial.png'
 import person1 from '../Images/person1.jpg'
 import Newsletter from "./components/common/Newsletter";
 import { BsShieldFillCheck } from "react-icons/bs";
-import CarCard from "./components/common/CarCard";
+
 import Loader from "./components/common/Loader";
 import Popularlocations from './components/common/PopularLocations'
 import Slider from "react-slick";
@@ -18,7 +18,7 @@ import styles from "@/styles/Home.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
-import SwiperSlides from "./component/comon/popular_location";
+
 
 import LogoCarousel from "./component/comon/company"
 import { useRef } from "react";

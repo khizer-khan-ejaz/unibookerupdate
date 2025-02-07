@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaStar, FaMapMarkerAlt, FaTruck } from "react-icons/fa";
 import api from '../../api/hello'
-import { useRouter } from "next/router";
+
 
 interface MostViewedItem {
   id: string;

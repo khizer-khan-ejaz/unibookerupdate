@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import styles from "../../../styles/CarCard.module.css";
-import starIcon from "../../../Images/star.svg";
+
 import wishlistIcon from "../../../Images/wishlist.svg";
 import heartfilled from "../../../Images/heart-filled.svg";
 import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
