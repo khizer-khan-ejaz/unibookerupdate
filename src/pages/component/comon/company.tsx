@@ -11,7 +11,7 @@ import styles from "@/styles/Home.module.css";
 interface Logo {
   id: string;
   name: string;
-  image: string;
+  imageURL: string;
 }
 
 interface HomeData {
@@ -66,7 +66,7 @@ export default function LogoCarousel() {
           homeData.makes.map((make) => ({
             id: make.id,
             name: make.name,
-            image: make.image,
+            imageURL: make.imageURL,
           }))
         );
       } catch (error) {
@@ -109,7 +109,7 @@ export default function LogoCarousel() {
             <div className={styles.company_logos_row}>
               
                 <div key={make.id}>
-                  <div className={styles.company_logos_div}  onClick={() => handleBrandClick(make.id)} style={{ cursor: "pointer" }}>
+                  <div className={styles.company_logos_div}  style={{ cursor: "pointer" }}>
                     <Image
                       src={make.imageURL}
                       alt={make.name}
