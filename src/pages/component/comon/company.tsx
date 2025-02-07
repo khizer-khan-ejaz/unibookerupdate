@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Image from "next/image";
-import api from "../../api/hello";
+import api from "../../api/api";
 import styles from "@/styles/Home.module.css";
 
 interface Logo {

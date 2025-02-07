@@ -10,7 +10,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useAuth } from "@/context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
-import api from "../api/api";
+import api from "../../api/api";
 import changePassword from '../../Images/changePassword.svg';
 
 const jostFont = Jost({
