@@ -17,8 +17,14 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id as string;
-      session.user.accessToken = token.accessToken as string;
+      if (session?.user) {
+        // Only modify session.user if it's defined
+        session.user.id = token.id as string;
+        session.user.accessToken = token.accessToken as string;
+      } else {
+        // Optionally handle the case where session.user is undefined
+        session.user = { id: token.id as string, accessToken: token.accessToken as string };
+      }
       return session;
     },
   },

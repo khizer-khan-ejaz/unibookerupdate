@@ -7,14 +7,14 @@ import signup from '../../Images/signup.png';
 import { Jost } from "next/font/google";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import api from "../../api/api";
+import api from "../api/api";
 import { useAuth } from "@/context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import parsePhoneNumberFromString from 'libphonenumber-js'
-
+import GoogleLogin from "./google-login";
 
 const jostFont = Jost({
   variable: "--font-jost",
@@ -350,7 +350,7 @@ const Signup = () => {
                         {loading ? "Signing up..." : "Sign Up"}
                       </button>
                     </form>
-                
+                    <GoogleLogin />
                     <div className={styles.authLinks}>
                       <p>Already have an account??<Link href="/auth/login"> Sign In</Link></p>
                     </div>
