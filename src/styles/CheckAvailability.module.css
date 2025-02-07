@@ -1,0 +1,72 @@
+.legend {
+    display: flex;
+    gap: 30px;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+.legend p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.available {
+    width: 25px;
+    height: 25px;
+    background-color: #85D487;
+    display: block;
+    border-radius: 6px;
+}
+
+.unavailable {
+    width: 25px;
+    height: 25px;
+    background-color: rgba(233, 65, 101, 0.401);
+    display: block;
+    border-radius: 6px;
+}
+
+.guestInput {
+    background: transparent;
+    border: none;
+    width: 70px;
+    display: inline !important;
+    margin: 0 auto;
+  }
+
+.counterBtn {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(233, 65, 101, 0.401);
+    border-radius: 50%;
+    color: #fff;
+    border: none;
+}
+
+.formLabel {
+    background: #f7f7f7 !important;
+    width: 250px;
+    padding: 10px 30px;
+    margin-bottom: 0;
+}
+
+.availablity {
+    background-color: #85D487;
+}
+
+.selectedDate {
+    background-color: #4caf50;
+    color: white;
+}
+
+.booking {
+    background-color: #ff003766;
+}
+
+@media screen and (max-width: 767px) {
+    .formLabel {
+        width: 100%;
+    }
+}

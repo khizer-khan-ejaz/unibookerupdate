@@ -1,0 +1,61 @@
+/* Sidebar Container */
+.sidebarOpen {
+    width: 220px;
+    height: 100vh;
+    background: #2c3e50;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 15px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .sidebarClosed {
+    width: 60px;
+    height: 100vh;
+    background: #2c3e50;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 15px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  /* Toggle Button */
+  .toggleButton {
+    font-size: 22px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  /* Menu List */
+  .menu {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu li {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .menu li:hover {
+    background: #34495e;
+  }
+  
+  /* Icons */
+  .icon {
+    font-size: 22px;
+    margin-right: 15px;
+  }
+  
+  /* Hide Text in Collapsed Mode */
+  .sidebarClosed .menu span {
+    display: none;
+  }
+  

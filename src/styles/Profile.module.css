@@ -1,0 +1,616 @@
+.ProfileMainSection {
+    padding: 150px 0;
+}
+
+.page {
+    font-family: var(--font-jost), sans-serif;
+}
+
+.most_viewed_cars {
+    text-align: center;
+    margin: 100px 0;
+}
+
+.cars_row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.ProfileTabs {}
+
+.ProfileTabsUsername {
+    font-size: 16px;
+}
+
+.themeEditProfile {
+    color: #17BEBB;
+    text-transform: uppercase;
+    margin-left: 10px;
+    margin-top: 0 !important;
+}
+
+.ProfileContentDisplaySection {
+    color: #837F74;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.ProfileImgSection {
+    text-align: center;
+}
+
+.ProfileImgSection h4 {
+    color: #000;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    text-transform: capitalize;
+
+}
+
+.profileImageDisplay {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.ProfileImgSection p {
+    color: #616161;
+    font-size: 14px;
+}
+
+.ProfileTabs h3 {
+    font-size: 24px;
+    margin: 30px 0;
+}
+
+.ProfileTabsMain {
+    flex-direction: column;
+    border-bottom: none !important;
+}
+
+.ProfileTabsMain li {
+    margin-bottom: 10px;
+}
+
+.ProfileTabsMain li button {
+    border: none !important;
+    color: #616161;
+
+}
+
+.ProfileTabsMain li button svg {
+    width: 20px;
+    color: #17BEBB;
+    height: 20px;
+}
+
+.ProfileChildCard h3 {
+    font-size: 24px;
+}
+
+.ProfileChildCardForm {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    padding: 40px;
+    margin: 30px 0;
+    border-radius: 20px;
+}
+
+.ProfileChildCard input {
+    border: 1px solid #7D879C;
+    /* height: 56px; */
+    border-radius: 8px;
+}
+
+.ProfileChildCardForm .form-label {
+    font-size: 16px;
+    color: #212121;
+}
+
+.ProfileChildCard button {
+    margin-top: 20px;
+    background-color: transparent;
+    border: none;
+}
+
+.settingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #F7F7F7;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+.settingItem:last-child {
+    border-bottom: none;
+}
+
+.settingIcon {
+    color: #ff4081;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.settingArrow {
+    color: #aaa;
+    font-size: 18px;
+}
+
+.notificationHeader {
+    font-size: 16px;
+    color: #555;
+    margin: 20px 0 10px;
+}
+
+.settingSwitch {
+    margin-left: auto;
+}
+
+.settingBox {
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.BookingGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.BookingCard {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.BookingDetailsRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.BookingDetailsRowHead {
+    width: 200px;
+}
+
+.BookingImage {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.BookingDetails {
+    padding: 15px;
+}
+
+.BookingDetails h4 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.BookingLocation {
+    color: #777;
+    font-size: 14px;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.BookingDistance {
+    color: #3ebd93;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.BookingPrice {
+    color: #ff4081;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.BookingPrice span {
+    font-weight: normal;
+    color: #616161;
+    font-size: 16px;
+}
+
+.BookingRating {
+    color: #ffc107;
+    margin: 5px 0;
+    text-align: right;
+}
+
+.BookingDates {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #555;
+}
+
+.BookingStatus {
+    font-size: 14px;
+    font-weight: bold;
+    color: #3ebd93;
+    margin: 5px 0;
+    margin-left: 5px;
+}
+
+.BookingOwner {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #616161;
+
+}
+
+.BookingActions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.CancelButton,
+.EReceiptButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100% !important;
+    border-radius: 13px;
+}
+
+.CancelButton {
+    background: #BDBDBD !important;
+    color: #555;
+}
+
+.EReceiptButton {
+    background: #ff4081 !important;
+    color: #fff;
+}
+
+.Icon {
+    margin-right: 8px;
+    color: #ff4081;
+    font-size: 16px;
+}
+
+.BookingDetailsSection {
+    display: flex;
+}
+
+.ReviewCard {
+    background-color: #F7F7F7;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 20px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.ReviewCardHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ReviewCardHeaderAvtar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ReviewCardImage {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #fff;
+}
+
+.ReviewCardInfo h4 {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.ReviewsInfo {
+    text-align: right;
+}
+
+.ReviewDate {
+    font-size: 15px;
+    color: #9E9E9E;
+}
+
+.ReviewText {
+    margin: 20px 0;
+    font-size: 15px;
+    color: #9E9E9E;
+    max-width: 500px;
+}
+
+/* Tabs */
+.Tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 0;
+
+}
+
+.TabButton {
+    /* border-radius: 5px; */
+    background: #f9f9f9;
+    cursor: pointer;
+    margin-right: 20px;
+    padding-bottom: 10px;
+    transition: background 0.3s, color 0.3s;
+
+}
+
+.TabButton:hover {
+    background: transparent;
+}
+
+.ActiveTab {
+    color: #ff4081;
+    border-bottom: 2px solid #ff4081 !important;
+}
+
+.SeeAllLink {
+    border-radius: 5px;
+    color: #ff4081;
+    cursor: pointer;
+}
+
+.SeeAllButton:hover {
+    background: #34a57c;
+}
+
+.TabsList {
+    display: flex;
+    border-bottom: 1px solid #f7f7f7;
+}
+
+.ProfileCardRow {
+    margin: 30px 0;
+    background-color: #F7F7F7;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.ProfileCardRowIn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ProfileCardPrice p {
+    color: #3ebd93;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.ProfileCardInfo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ProfileCardInfo p {
+    margin-bottom: 0;
+    font-size: 18px;
+    color: #000;
+}
+
+.ProfileCardRowMoreInfo p {
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+.TicketInfo h4 {
+    color: #17BEBB;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.deliveredText {
+    color: #000;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.ProfileCreateTicketForm {
+    margin: 30px 0;
+}
+
+.ProfileCreateTicketForm input {
+    background-color: #F7F7F7;
+    height: 65px;
+    border: none;
+    padding: 20px;
+}
+
+.ProfileCreateTicketForm textarea {
+    min-height: 300px;
+    background-color: #F7F7F7;
+    border: none;
+    padding: 20px;
+}
+
+.ProfileCreateTicketFormButton {
+    min-width: 300px;
+    background-color: #17BEBB !important;
+    height: 60px;
+    color: #fff;
+    border-radius: 12px;
+}
+
+.ProfileCreateTicket h4 {
+    font-size: 24px;
+}
+
+.ProfileCreateTicket h4 a {
+    color: #17BEBB;
+}
+
+.ProfileCreateTicket p {
+    font-size: 16px;
+    color: #616161;
+    margin-bottom: 30px;
+    line-height: 27px;
+    text-align: justify;
+}
+
+/* Container for the Ticket Display Card */
+.TicketDisplayCard {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ticket Header */
+.TicketHeader {
+    margin-bottom: 20px;
+}
+
+.TicketHeader h4 {
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.TicketHeader h3 {
+    color: #343a40;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.TicketDescription {
+    color: #616161;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f7f7f7;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 20px;
+}
+
+/* Chat Section */
+.ChatSection {
+    margin-top: 20px;
+}
+
+.ChatBubbleLeft,
+.ChatBubbleRight {
+    max-width: max-content;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+.ChatBubbleLeft {
+    background-color: rgb(233 65 101 / 80%);
+    color: #fff;
+    align-self: flex-start;
+}
+
+.ChatBubbleRight {
+    background-color: transparent;
+    color: #343a40;
+    align-self: flex-end;
+    margin-left: auto;
+    border: 1px solid #ccc;
+}
+
+.ChatTimestamp {
+    display: block;
+    font-size: 12px;
+    color: #adb5bd;
+    margin-bottom: 10px;
+}
+
+/* Message Input Section */
+.MessageInputSection {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #dee2e6;
+    margin-top: 20px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.MessageInput {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-right: 10px;
+    outline: none;
+    height: 60px;
+    width: 100%;
+    position: relative;
+}
+
+.MessageInput:focus {
+    border-color: #007bff;
+}
+
+.SendMessageButton {
+    background-color: #3ebd93 !important;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px !important;
+    top: 0;
+}
+
+.SendMessageButton:hover {
+    background-color: #0056b3;
+}
+
+@media screen and (max-width: 767px) {
+    .ProfileChildCardForm {
+        padding: 20px;
+    }
+
+    .ProfileTabsMain {
+        margin: 20px 0;
+    }
+
+    .ProfileViewCard,
+    .ProfileViewCardRow {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    .ProfileTabsMain {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-y: scroll;
+    }
+
+    .ProfileTabsMain li button {
+        width: 180px;
+    }
+}
+
+.RechargeForm {
+    margin: 20px 0;
+}

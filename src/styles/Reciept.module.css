@@ -1,0 +1,42 @@
+.ReceiptPage {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 30px;
+    border-radius: 30px;
+    width: 1100px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+.ReceiptPage h3 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.ReceiptCard {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 20px;
+}
+
+.RecieptCardRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ReceiptCard span {
+    color: #616161;
+}
+
+.ReceiptCard p {
+    color: #000;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+@media screen and (max-width: 767px) {
+    .ReceiptPage {
+        width: 100%;
+        padding: 20px;
+    }
+}

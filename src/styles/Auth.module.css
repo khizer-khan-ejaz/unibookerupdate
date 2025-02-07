@@ -1,0 +1,180 @@
+.page {
+  font-family: var(--font-jost), sans-serif;
+}
+
+.authContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  position: relative;
+}
+
+.authBox {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contentBox {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.authTitle {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.authPara {
+  color: #616161;
+  font-size: 16px;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 20px !important;
+  background-color: #F7F7F7;
+  border: none;
+  padding-left: 60px !important;
+  border-radius: 10px;
+}
+
+.authButton {
+  background: #17BEBB;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  padding: 10px;
+  height: 65px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.resendButton {
+  background: transparent;
+  border: none;
+  display: block;
+  margin: 20px 0;
+  text-align: center;
+  width: 100%;
+  color: #17BEBB;
+}
+
+.authButton:hover {
+  background: #6a11cb;
+}
+
+.authParaLoggedin,
+.authParaLoggedinLink {
+  color: #17BEBB;
+}
+
+.authLinks a {
+  color: #17BEBB;
+  text-decoration: none;
+}
+
+.authLinks a:hover {
+  text-decoration: underline;
+}
+
+.patternBox {
+  position: absolute;
+  bottom: -200px;
+  left: 0;
+  right: 20%;
+}
+
+.inputWithIcon {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.socialSignIn {
+  margin: 30px 0;
+}
+
+.socialButton {
+  margin-bottom: 10px;
+  width: 84px;
+  height: 84px;
+  border: 1px solid #EBEDF9;
+  border-radius: 20px;
+  font-size: 25px;
+  margin-right: 20px;
+}
+
+.divider {
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.authLinks {
+  text-align: left;
+  margin: 30px 0;
+}
+
+.checkboxInput {
+  margin-right: 10px;
+  height: 20px;
+  width: 20px;
+}
+
+.authBox form {
+  text-align: center;
+}
+
+.infoIcon {
+  display: flex;
+  margin-top: 40px;
+  align-items: center;
+  text-align: left;
+  gap: 20px;
+}
+
+.infoIcon svg {
+  width: 40px;
+  height: 40px;
+  color: #17BEBB;
+}
+
+@media screen and (max-width: 767px) {
+  .patternBox {
+    bottom: 0;
+    right: 20px;
+  }
+}

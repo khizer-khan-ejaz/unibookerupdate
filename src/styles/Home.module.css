@@ -1,0 +1,389 @@
+.page {
+  font-family: var(--font-jost), sans-serif;
+}
+.main {
+  
+}
+/* Hero Section */
+.hero_bg {
+  background-image: url('../Images/home-bg.png');
+  background-size: cover;
+  background-position: center;
+  padding: 50px 0;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  position: relative; 
+}
+
+.hero_bg h1 {
+  font-size: 64px;
+  font-weight: normal;
+  line-height: 70px;
+  margin-bottom: 30px;
+}
+
+.hero_bg h1 span {
+  color: #17BEBB;
+  font-weight: 600;
+}
+
+.search_box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.theme_btn {
+  background-color: #17BEBB;
+  border-color: #17BEBB;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  width: 100%;
+  height: 60px;
+}
+
+.theme_btn:hover {
+  background-color: #008683;
+  border-color: #008683;
+}
+
+.carouselValue {
+  position: absolute;
+  bottom: -24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  right: 0;
+
+}
+
+.carouselValueContainer {
+  background-color: #F6F6F6;
+  height: 68px;
+  border-radius: 64px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 36px;
+}
+
+.carouselValueSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-right: 2px solid #ddd;
+  padding-right: 12px;
+}
+
+.carouselValueSectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.carouselValueSection svg {
+  fill: #17BEBB;
+  width: 25px;
+  height: 25px;
+}
+
+.carouselValueSectionContent h4 {
+  color: #000;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.carouselValueSectionContent p {
+  color: #000;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+/* Hero Section */
+.location_slider {
+  margin: 30px 0;
+}
+
+.grid_layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.locationImg {
+  max-width: 250px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+.locationImgGrid {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.popular_locations,
+.company_logos,
+.most_viewed_cars,
+.deliverables,
+.recommended_cars,
+.advertising_banner,
+.travel_stories,
+.newsletter {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.location_card {
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.location_card h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: white;
+  right: 0;
+  top: 50%;
+  font-size: 20px;
+  width: 90%;
+}
+
+.btn_link {
+  color: #000;
+  display: block;
+  margin-top: 40px;
+}
+
+/* Company Logos */
+.company_logos_row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.company_logos_div {
+  background-color: #fff;
+  border: 1px solid #f8f8f8;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company_logos .logo {
+  margin: 10px;
+}
+
+/* Cars Section */
+.most_viewed_cars_row {
+  display: flex;
+  margin-top: 50px;
+  gap: 30px;
+  color: #fff;
+}
+
+.cars_row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Cars Section */
+/* Deliverables Section */
+.deliverables_row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.deliverables_block {
+  display: flex;
+  gap: 20px;
+  background-color: #F5F5F5;
+  padding: 30px;
+  border-radius: 20px;
+  align-items: center;
+}
+
+.deliverables_content_block {
+  text-align: left;
+}
+
+.deliverables_content_block p {
+  margin-bottom: 0;
+}
+
+.advertising_banner {
+  background-image: url('../Images/banner.png');
+  background-size: cover;
+  background-position: center;
+  padding: 200px;
+  color: white;
+  margin-top: 100px;
+  border-radius: 20px;
+  color: #000;
+}
+
+.advertising_banner_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.advertising_banner_content h3 {
+  font-size: 48px;
+}
+
+.advertising_btn {
+  color: #17BEBB;
+  margin-top: 10px;
+}
+
+.travel_stories {
+  margin-bottom: 100px;
+}
+
+.clientBox {
+  margin: 0 100px;
+}
+
+.travel_stories h3 {
+  text-align: left;
+}
+
+.travel_stories_img {
+  margin-right: 40px;
+}
+
+.main_heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.testimonial_img {
+  width: 80px;
+  height: 80px;
+}
+
+.clientInfo h5 {
+  font-size: 24px;
+}
+
+.clientInfo p {
+  font-size: 14px;
+}
+
+.testimonialSlide {
+  text-align: left;
+}
+
+.testimonialSlide p {
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .company_logos_row {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .most_viewed_cars_img {
+    height: 500px;
+  }
+
+  .clientBox {
+    margin: 0 40px;
+  }
+
+  .carouselValue {
+    display: none;
+  }
+
+  .locationImg {
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+  }
+
+  .company_logos_div {
+    margin-bottom: 50px;
+  }
+
+  .hero_bg h1 {
+    font-size: 34px;
+    line-height: 45px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .search_box {
+    background-color: #fff;
+    padding: 20px 20px;
+    border-radius: 20px;
+    margin: 30px 10px;
+  }
+
+  .location_card img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .cars_row {
+    grid-template-columns: 1fr;
+  }
+
+  .deliverables_row {
+    flex-direction: column;
+    margin: 0 10px;
+  }
+
+  .advertising_banner {
+    padding: 50px;
+  }
+
+  .advertising_banner_content h3 {
+    font-size: 30px;
+  }
+
+  .travel_stories_img {
+    margin-right: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .testimonialSlide p {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .testimonialUser {
+    justify-content: center !important;
+    align-items: center;
+    margin: 40px 0;
+  }
+
+  .hero_bg p {
+    text-align: center;
+  }
+}

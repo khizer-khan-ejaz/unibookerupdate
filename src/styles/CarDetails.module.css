@@ -1,0 +1,242 @@
+.page {
+  font-family: var(--font-jost), sans-serif;
+}
+
+.carDetailMain {
+  padding: 100px 0;
+}
+
+.carDetailContent h1 {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 45px;
+}
+
+.carDetailContentHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carDetailContentHeading  p {
+  font-size: 16px;
+  color: #9E9E9E;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carDetailRating p {
+  color: #ffdd3c;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.carDetailImage img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.carDetailBox {
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 30px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #9E9E9E;
+}
+
+.carDetailBoxContent h6 {
+  margin-bottom: 5px;
+}
+
+.carDetailBoxContent p {
+  margin-bottom: 0;
+}
+
+.carFeatures {
+  margin-top: 50px;
+}
+
+.carFeatures h4{
+  font-size: 20px;
+}
+
+.carFeatures ul {
+  padding-left: 0;
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.carFeatures ul li {
+  list-style-type: none;
+  gap: 10px;
+  display: flex;  
+  margin-bottom: 10px;
+  color: #616161;
+  margin-right: 30px;
+}
+
+.carFeaturesList {
+  display: flex;
+  gap: 40px;
+}
+
+.carDetailBoxButton p {
+  margin-bottom: 0;
+  color: #17BEBB;
+  font-size: 20px;
+}
+
+.themeBtn {
+  background-color: #17BEBB;
+  border-color: #17BEBB;
+  height: 55px;
+  padding: 10px 60px;
+}
+
+.carDetailBoxButton {
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 30px;
+  border-radius: 8px;
+}
+
+.aboutSection {
+  margin-top: 40px;
+}
+
+.aboutSection h4 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.aboutSection p {
+  font-size: 16px;
+  color: #616161;
+  line-height: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .carDetailImage img {
+    width: 100%;
+    height: 100%;
+    margin: 20px 0;
+  }  
+  .themeBtn {
+    padding: revert;
+  }
+}
+
+
+.checkoutRightSectionPolicy {
+  background-color: #F7F7F7;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px;
+  color: #17BEBB;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.checkoutRightSectionPolicyBox {
+  display: flex;
+  gap: 10px;
+}
+
+.checkoutRightSectionPolicyBox p {
+  margin-bottom: 0;
+}
+
+.PersonDetailBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #EDEDED;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.personBox {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.personBox img {
+  border-radius: 50%;
+}
+
+.personBox h4 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.personBox button {
+  color: #17BEBB;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
+}
+
+.personBoxIcon svg {
+  width: 24px;
+  height: 24px;
+  fill: #17BEBB;
+}
+
+.thumbnailWrapper {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.thumbnailWrapper:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.activeThumbnailWrapper {
+  border: 2px solid #007bff;
+  opacity: 1;
+  transform: scale(2.5);
+}
+
+.thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.activeThumbnail {
+  border: 2px solid #007bff;
+}
+
+.CarDetails_carDetailImage__mL_0f img {
+  visibility: hidden;
+}
+
+.react-image-zoom img {
+  visibility: visible;
+  transition: visibility 0.3s ease;
+}
+
+.aboutSectionMap {
+  width: 100%;
+  height: 400px;
+  border-radius: 20px;
+}

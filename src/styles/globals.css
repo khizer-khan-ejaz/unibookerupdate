@@ -1,0 +1,476 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root,
+#__next {
+  --font-jost: 'Jost', sans-serif;
+}
+:root,
+#__next {
+  --font-jost: 'Jost', sans-serif;
+}
+
+body {
+  font-family: var(--font-jost) !important;
+}
+
+.shimmer-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f6f7f8;
+  overflow: hidden;
+  position: relative;
+}
+
+.shimmer-block {
+  background: linear-gradient(to right,
+      #e0e0e0 0%,
+      #f2f2f2 20%,
+      #e0e0e0 40%,
+      #e0e0e0 100%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+
+  100% {
+    background-position: 1200px 0;
+  }
+}
+
+label {
+  margin-bottom: 10px;
+  color: #616161;
+  font-size: 16px;
+}
+
+.theme_btn {
+  background-color: #17BEBB !important;
+  color: #fff;
+  height: 60px;
+  display: block;
+  padding: 10px 50px !important;
+  border-radius: 12px !important;
+  border: none !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #17BEBB !important;
+}
+
+.slick-prev,
+.slick-next {
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  color: #17BEBB !important;
+}
+
+.Pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  gap: 20px;
+}
+
+.PageButton {
+  background-color: transparent !important;
+  color: #ff4081;
+  border: 1px solid #ff4081 !important;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-items: center;
+  display: flex;
+  margin-top: 0 !important;
+}
+
+.PageButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.PageInfo {
+  font-size: 16px;
+}
+
+span.PageInfo.active {
+  font-size: 16px;
+  border: 1px solid #ff4081;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  text-align: center;
+  color: #ff4081;
+}
+
+.PageButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.checkInput {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.react-calendar.react-calendar--selectRange {
+  width: 100% !important;
+}
+
+.customFormcontrol {
+  background-color: transparent !important;
+  border: 1px solid #f7f7f7 !important;
+  height: 50px;
+}
+
+.input-group {
+  height: 50px;
+  background: #f7f7f7;
+  align-items: center !important;
+  justify-content: flex-start;
+  border-radius: 10px;
+  gap: 20px;
+  padding-left: 10px;
+}
+
+span.input-group-text {
+  border: none;
+}
+
+.error {
+  margin: 10px 0;
+  color: red;
+  text-align: left;
+}
+
+.react-tel-input .form-control {
+  all: unset !important;
+}
+
+.phoneInput {
+  height: 60px;
+  background-color: #F7F7F7;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  gap: 80px;
+}
+
+.intl-tel-input.allow-dropdown .flag-container {
+  left: 50px !important;
+}
+
+.intl-tel-input.allow-dropdown input, .intl-tel-input.allow-dropdown input[type=text], .intl-tel-input.allow-dropdown input[type=tel] {
+  padding-left: 100px !important;
+}
+
+.no_data {
+  font-size: 1.5rem;
+  color: #ff0000;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.react-calendar {
+  width: 100% !important;
+}
+
+.signup-section .PhoneInputCountry {
+  margin-right: -30px !important;
+  background: #f7f7f7;
+  border-radius: 10px;
+}
+
+.signup-section .PhoneInputCountryIcon.PhoneInputCountryIcon--square {
+  margin-left: 60px;
+}
+
+.signup-section .PhoneInputCountryIconUnicode {
+  margin-left: 70px;
+}
+
+.signup-section input.PhoneInputInput:focus {
+  border: none !important;
+  outline: none !important;
+}
+
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.dark {
+  background-color: black;
+  color: white;
+}
+
+.closeTicketBtn {
+  color: red;
+}
+
+#preloader {
+  background-color: rgb(0 0 0/30%);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999999999;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#preloader:not(:required)::before {
+  content: '';
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-top-color: #848484;
+  animation: preloader .6s linear infinite;
+  -webkit-animation: preloader .6s linear infinite;
+}
+
+#preloader::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  right: 0;
+  margin: 0 auto;
+}
+
+@keyframes preloader {
+  from {
+      transform: rotate(0deg);
+  }
+
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes preloader {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+
+  to {
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+/* select#endTime option:last-child,
+select#startTime option:last-child
+{
+  display: none;
+} */
+
+#startTime option[value=""],
+select#endTime option[value=""] {
+  display: none;
+}
+.car-card {
+  display: flex;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.car-image {
+  width: 200px; /* Adjust as needed */
+  margin-right: 10px;
+}
+
+.car-image img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.car-details {
+  flex: 1;
+}
+
+.basic-details h2 {
+  margin-top: 0;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating-value {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.features {
+  display: flex;
+  margin-top: 10px;
+}
+
+.feature {
+  background-color: #eee;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+.sidebar-list-item {
+  margin-bottom: 5px; 
+  padding: 10px;/* Reduce the space between list items */
+}
+
+.sidebar-checkbox {
+  margin-right: 8px; /* Reduce the space between checkbox and label */
+}
+
+.sidebar-label {
+  margin-left: 0; /* Remove unnecessary margin from the label */
+}
+
+.filter_section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Accordion Header */
+.accordion-button {
+  background-color: #f8f9fa !important;
+  font-weight: 600;
+  color: #000;
+  border: none;
+  box-shadow: none !important;
+  padding: 12px;
+}
+
+.accordion-button:hover {
+  background-color: #e9ecef !important;
+}
+
+.accordion-button::after {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.accordion-button[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+/* Accordion Items */
+.accordion-item {
+  border: none;
+  margin-bottom: 5px;
+}
+
+/* Checkbox Styling */
+.filter_section input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #007bff;
+  cursor: pointer;
+}
+
+.filter_section label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Price Range Input */
+.filter_section input[type="range"] {
+  width: 100%;
+  margin-top: 8px;
+  appearance: none;
+  background: #ddd;
+  height: 4px;
+  border-radius: 4px;
+  outline: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.filter_section input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.filter_section input[type="range"]:hover {
+  background: #bbb;
+}
+
+/* Nav Items (Checkbox & Labels) */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  .filter_section {
+      padding: 10px;
+  }
+
+  .accordion-button {
+      font-size: 14px;
+      padding: 10px;
+  }
+}
+.filter_section {
+  height: 100vh; /* Ensure full height */
+  overflow-y: auto; /* Enable scrolling */
+  direction: rtl; /* Right-to-left direction */
+  text-align: left; /* Keep text alignment normal */
+  padding-right: 10px; /* Adjust padding */
+}
+
+.filter_section * {
+  direction: ltr; /* Keep child elements left-to-right */
+}
+.filter-container {
+  display: flex; /* Arrange items horizontally */
+  flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+  gap: 10px; /* Spacing between filter items */
+}
+
+.filter-item {
+  display: flex; /* Arrange label, value, and remove icon horizontally */
+  align-items: center; /* Vertically align items */
+  border: 1px solid #ccc; /* Add border */
+  padding: 5px 10px; /* Add padding */
+  border-radius: 5px; /* Add rounded corners */
+  background-color: #f0f0f0; /* Light background color (optional) */
+}
+
+.filter-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.filter-remove {
+  cursor: pointer; /* Make the remove icon clickable */
+  margin-left: 5px;
+  color: #888; /* Slightly darker color for the 'x' */
+}

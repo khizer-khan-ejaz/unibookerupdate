@@ -1,0 +1,189 @@
+.checkoutMainSection {
+    padding: 150px 0;
+}
+
+.page {
+    font-family: var(--font-jost), sans-serif;
+}
+
+.checkoutImgSection {
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.checkoutContentSection {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.checkoutRightSectionContent {
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+}
+
+.checkoutRightSectionPolicy {
+    background-color: #F7F7F7;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 12px;
+    color: #17BEBB;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.checkoutRightSectionPolicyBox {
+    display: flex;
+    gap: 10px;
+}
+
+.checkoutRightSectionPolicyBox p {
+    margin-bottom: 0;
+}
+
+.checkoutImgSectionBlock img {
+    width: 100%;
+}
+
+.checkoutContentSectionBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkoutContentHeadingBlock {
+    width: 250px;
+}
+
+.checkoutContentHeadingBlock h4 {
+    font-size: 24px;
+}
+
+
+.checkoutContentHeadingBlock img {
+    margin-right: 10px;
+}
+
+.checkoutContentHeadingBlock p {
+    color: #616161;
+    font-size: 16px;
+}
+
+.checkoutContentDetailBlock {
+    text-align: right;
+}
+.checkoutContentDetailBlock p {
+    margin-bottom: 5px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 12px;
+}
+
+.checkoutContentDetailBlock p svg {
+    fill: #ffdd3c;
+}
+
+.checkoutContentDetailBlock h6 {
+    font-size: 16px;
+    color: #17BEBB;
+}
+
+.checkoutContentDetailBlock span {
+    font-size: 14px;
+    color: #616161;
+}
+
+.checkoutContentDetailBlock small {
+    color: #00CE78;
+    font-size: 14px;
+}
+
+.checkoutRightSectionContent h3 {
+    font-style: 24px;
+    margin-bottom: 25px;
+    font-style: normal;
+}
+
+.checkoutContentSectionRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.checkoutContentSectionRow h6 span, .checkoutContentSectionRow p span {
+    color: #616161;
+}
+
+.checkoutContentSectionRow h6, .checkoutContentSectionRow p{
+    font-size: 16px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.greenText {
+    color: 60B863;
+}
+
+.TotalPrice {
+    color: #17BEBB;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.checkoutRightSectionPolicyContent p {
+    color: #616161;
+    font-size: 16px;
+    text-align: left;
+}
+
+.checkoutRightSectionPolicyContent p a {
+    color: #17BEBB;
+    font-weight: 400;
+}
+
+.checkoutRightSectionPolicyContent {
+    text-align: center;
+}
+
+.payNowButton {
+    background-color: #17BEBB;
+    border-color: #17BEBB;
+    width: 100%;
+    max-width: 350px;
+    height: 63px;
+    margin: 20px 0;
+}
+
+.payNowButton:hover {
+    background-color: #17BEBB;
+    border-color: #17BEBB;
+}
+
+.doorstepDeliverySection 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.doorstepDeliverySectionInput label {
+    margin-bottom: 0;
+}
+
+.doorstepDeliverySectionInput {
+    display: flex;
+    gap: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .checkoutImgSection {
+        margin-bottom: 20px;
+    }
+}
