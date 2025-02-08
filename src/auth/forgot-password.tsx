@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
-import Newsletter from "../components/common/Newsletter";
+
 import styles from '@/styles/Auth.module.css';
 import Image from "next/image";
 import forgot_password from '../../Images/forgot_password.png';
@@ -323,7 +323,7 @@ const ForgotPassword = () => {
           )}
           {error && <p className="text-sm text-red-600">{error}</p>}
         </div>
-        <Newsletter />
+      
         <ToastContainer />
       </div>
     </>
