@@ -49,7 +49,7 @@ const LoginSuccess = () => {
             </Row>
           </Container>
         </div>
-        <Newsletter />
+       
       </div>
     </>
   );

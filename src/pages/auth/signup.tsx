@@ -395,7 +395,7 @@ const Signup = () => {
             </Row>
           </Container>
         </div>
-        <Newsletter />
+      
         <ToastContainer />
       </div>
     </>

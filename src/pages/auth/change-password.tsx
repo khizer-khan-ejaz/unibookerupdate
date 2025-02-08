@@ -54,7 +54,7 @@ const ChangePassword = () => {
             </Row>
           </Container>
         </div>
-        <Newsletter />
+        
       </div>
     </>
   );

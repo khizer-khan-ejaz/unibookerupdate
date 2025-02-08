@@ -287,7 +287,7 @@ const Login = () => {
 
           </Container>
         </div>
-        <Newsletter />
+       
         <ToastContainer />
       </div>
     </>

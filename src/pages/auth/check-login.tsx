@@ -38,7 +38,7 @@ const Loggedin = () => {
             </Row>
           </Container>
         </div>
-        <Newsletter />
+        
       </div>
     </>
   );

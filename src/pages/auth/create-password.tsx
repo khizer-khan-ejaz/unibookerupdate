@@ -94,7 +94,7 @@ const CreatePassword = () => {
             </Row>
           </Container>
         </div>
-        <Newsletter />
+      
       </div>
     </>
   );
