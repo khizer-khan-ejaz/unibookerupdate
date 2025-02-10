@@ -274,6 +274,9 @@ const Index = () => {
                             <Col md={2} className='text-start'>
   <h2>Car List</h2>
 </Col>
+<Col>
+
+</Col>
 
 
 

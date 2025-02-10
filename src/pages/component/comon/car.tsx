@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaStar, FaMapMarkerAlt, FaTruck } from "react-icons/fa";
 import api from '../../api/api'
-
+import CarCard from '../../components/common/CarCard';
 
 interface MostViewedItem {
   id: string;
@@ -81,6 +81,9 @@ interface HomeData {
     logo: string;
   }[];
 }
+const saveSelectedCar = (car: MostViewedItem) => {
+  sessionStorage.setItem("selectedCar", JSON.stringify(car));
+};
 
 const CarCarousel = () => {
   const [homeData, setHomeData] = useState<HomeData | null>(null);
@@ -123,34 +126,23 @@ const CarCarousel = () => {
 
 
   return (
-    <div className="mt-20 max-w-5xl w-full bg-slate-50 mx-auto py-10">
+    <div className="mt-20  w-full bg-slate-50 mx-auto py-10">
       <h2 className="text-3xl font-bold text-center mb-6">Top cars</h2>
       <Slider {...settings}>
-        {homeData?.most_viewed_items.map((car: MostViewedItem, index) => (
-          <div key={index} className="p-4">
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-              <div className="relative">
-                <img
-                  src={car.image}
-                  alt={car.name}
-                  className="w-full h-52 object-cover"
-                />
-                <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">
-                  {car.item_rating} <FaStar className="inline ml-1 text-xs" />
-                </div>
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold">{car.name}</h3>
-                <p className="text-xl font-semibold text-gray-800">{car.price}</p>
-                <p className="text-sm text-gray-500 mt-1">{car.item_rating}</p>
-                <div className="flex items-center text-sm text-gray-500 mt-2">
-                  <FaMapMarkerAlt className="text-red-500 mr-1" />
-                  {car.address}
-                  <FaTruck className="ml-2 text-gray-700" />
-                  <span className="ml-1">Delivery</span>
-                </div>
-              </div>
-            </div>
+        {homeData?.most_viewed_items.map((car, index) => (
+          <div key={car.id || index} onClick={() => saveSelectedCar(car)}> {/* Use car.id if available, otherwise fallback to index */}
+            <CarCard
+              id={car.id}
+              image={car.image}
+              name={car.name}
+              item_rating={car.item_rating}
+              rating={car.item_rating}
+              location={car.address}
+              price={car.price}
+              is_in_wishlist={car.is_in_wishlist}
+              item_info={car.item_info}
+              saveSelectedCar={saveSelectedCar} // You probably don't need to pass this down here
+            />
           </div>
         ))}
       </Slider>
