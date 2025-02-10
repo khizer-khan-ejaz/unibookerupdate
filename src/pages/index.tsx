@@ -164,8 +164,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
-    const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState<string>('');
+    const [endDate, setEndDate] = useState<string>('');
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   
@@ -176,19 +176,34 @@ export default function Home() {
  
        
     // Handle calendar selection
-   const handleDateChange = (
-  selectedRange: { startDate: Date; endDate: Date },
-  startTime: Date,
-  endTime: Date
-) => {
-  setStartDate(startDate);
-  setEndDate(endDate);
-
-  // Optionally, you can do something with startTime and endTime if needed
-  // For example:
-  console.log('Start Time:', startTime);
-  console.log('End Time:', endTime);
-};
+    const handleDateChange = (
+      selectedRange: { startDate: Date; endDate: Date },
+      startTime: Date,
+      endTime: Date
+    ) => {
+      // Convert Date to the desired string format: "Fri Mar 07 2025"
+      const startFormatted = selectedRange.startDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+      });
+      
+      const endFormatted = selectedRange.endDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+      });
+    
+      setStartDate(startFormatted); // Set formatted date as string
+      setEndDate(endFormatted); // Set formatted date as string
+    
+      // Optionally, log formatted times
+      console.log('Start Time:', startFormatted);
+      console.log('End Time:', endFormatted);
+    };
+    
 
   
   
