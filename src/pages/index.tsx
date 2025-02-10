@@ -178,8 +178,7 @@ export default function Home() {
     // Handle calendar selection
     const handleDateChange = (
       selectedRange: { startDate: Date; endDate: Date },
-      startTime: Date,
-      endTime: Date
+   
     ) => {
       // Convert Date to the desired string format: "Fri Mar 07 2025"
       const startFormatted = selectedRange.startDate.toLocaleDateString('en-US', {
