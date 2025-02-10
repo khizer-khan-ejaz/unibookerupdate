@@ -9,6 +9,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import api from "../../api/api"; // Ensure API is properly imported
 
+
 // ✅ Define an interface for the car object
 interface CarCardProps {
   id: string;

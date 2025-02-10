@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaStar, FaMapMarkerAlt, FaTruck } from "react-icons/fa";
+
 import api from '../../api/api'
 import CarCard from '../../components/common/CarCard';
 
