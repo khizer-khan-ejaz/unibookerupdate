@@ -10,60 +10,68 @@ import { toast } from "react-toastify";
 import api from "../../api/api"; // Ensure API is properly imported
 
 // ✅ Define an interface for the car object
-interface Car {
-  id: string;
-  name: string;
-  image: string;
-  item_rating: number;
-}
-
 interface CarCardProps {
   id: string;
   name: string;
-  item_rating: number;
+  rating: number;
+  location?: string;
+  price: string;
   image: string;
-  price: number;
+  item_rating: number;
+  item_info: string;
   is_in_wishlist?: boolean;
-  saveSelectedCar: (car: Car) => void; // ✅ Updated with a proper type
+  saveSelectedCar: (car: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 const CarCard: React.FC<CarCardProps> = ({
   id,
   name,
   item_rating,
-  image,
+
   price,
+  image,
   is_in_wishlist = false,
-  saveSelectedCar,
+  saveSelectedCar
 }) => {
   const [inWishlist, setInWishlist] = useState(is_in_wishlist);
-
   const handleWishlistToggle = async (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (typeof window === "undefined") return;
-    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+      e.stopPropagation()
 
-    if (!userData?.token && !userData?.accessToken) {
-      toast.info("Please log in to use the wishlist.");
-      return;
-    }
-
-    const payload = { item_id: id, token: userData?.token || userData?.accessToken };
-
-    try {
-      const response = inWishlist
-        ? await api.get("/removeFromWishlist", { params: payload })
-        : await api.post("/addToWishlist", payload);
-
-      if (response.status === 200) {
-        setInWishlist(!inWishlist);
-        toast.success(inWishlist ? "Removed from wishlist!" : "Added to wishlist!");
-      } else {
-        toast.error("Failed to update wishlist.");
+      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+      if (!userData?.token && !userData?.accessToken) {
+          toast.info("Please log in to use the wishlist.");
+          return;
       }
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "An unknown error occurred");
-    }
+      const payload = {
+          item_id: id,
+          token: userData?.token || userData?.accessToken,
+      };
+
+      try {
+          if (inWishlist) {
+              const response = await api.get("/removeFromWishlist", { params: payload });
+              if (response.status === 200) {
+                  setInWishlist(false);
+                  toast.success("Removed from wishlist!");
+              } else {
+                  toast.error("Failed to remove from wishlist.");
+              }
+          } else {
+              const response = await api.post("/addToWishlist", payload);
+              if (response.status === 200) {
+                  setInWishlist(true);
+                  toast.success("Added to wishlist!");
+              } else {
+                  toast.error("Failed to add to wishlist.");
+              }
+          }
+      } catch (err: unknown) {
+          if (err instanceof Error) {
+              toast.error(err.message);
+          } else {
+              toast.error('An unknown error occurred');
+          }
+      }
   };
 
   return (

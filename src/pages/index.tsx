@@ -167,32 +167,49 @@ export default function Home() {
     const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   
   
-    const calendarRef = useRef(null);
+    
   
   
  
        
     // Handle calendar selection
-    const handleDateChange = (range: Range, start: string, end: string) => {
-      setStartDate(start);
-      setEndDate(end);
-      
-    };
-    
+   const handleDateChange = (
+  selectedRange: { startDate: Date; endDate: Date },
+  startTime: Date,
+  endTime: Date
+) => {
+  setStartDate(startDate);
+  setEndDate(endDate);
+
+  // Optionally, you can do something with startTime and endTime if needed
+  // For example:
+  console.log('Start Time:', startTime);
+  console.log('End Time:', endTime);
+};
+
   
   
     // Handle calendar opening
     const handleCalendarClick = () => setIsOpenCalendar(true);
+    const calendarRef = useRef<HTMLDivElement>(null);
   
     // Close calendar when clicking outside
     useEffect(() => {
-      function handleClickOutside(event) {
-        if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+      function handleClickOutside(event: MouseEvent) {
+        // Close calendar if clicked outside of calendar
+        if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
           setIsOpenCalendar(false);
         }
+    
+        // Close dropdown if clicked outside of dropdown
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+          setIsOpen(false);
+        }
+    
+        // Fetch data inside the effect
         const fetchData = async () => {
           try {
             const response = await api.get("/homeData");
@@ -204,25 +221,17 @@ export default function Home() {
           }
         };
         fetchData();
+      }
     
-      }
-  
+      // Add the event listener
       document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-    // Close calendar when clicking outside
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsOpen(false);
-        }
-      }
-      document.addEventListener("mousedown", handleClickOutside);
+    
+      // Clean up the event listener
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, []);
-  
+    }, []); // Empty dependency array ensures this effect only runs once on mount
+    
 
   useEffect(() => {
       const fetchData = async () => {
@@ -299,48 +308,54 @@ export default function Home() {
                         <Col md={4}>
                         <div className="form-inputs mb-3" ref={dropdownRef}>
                         <label htmlFor="location">Location</label>
-        <input
-          id="location"
-          type="text"
-          className="form-control"
-          placeholder="Enter a location"
-          value={locationClicked}
-          onClick={() => setIsOpen(true)}
-          readOnly
-        />
-        {isOpen && (
-          <div className="absolute mt-2 w-3/6  border border-gray-300 rounded-md bg-white shadow-lg">
-            <button className="bg-gray-100 px-4 py-3 flex m-4 text-xs rounded-2xl gap-3 mx-9 hover:bg-gray-200">
-              <img src="https://www.zoomcar.com/img/icons/icons_my_location.png" className="h-5" alt="" />
-              Current Location
-            </button>
+                        <input
+  id="location"
+  type="text"
+  className="form-control"
+  placeholder="Enter a location"
+  value={locationClicked}
+  onClick={() => setIsOpen(true)}
+  readOnly
+/>
 
-            <div className="bg-gray-200 mx-9">
-              <h3 className="text-sm font-bold text-center mx-7">Suggested Locations</h3>
-            </div>
+{isOpen && (
+  <div className="absolute mt-2 w-3/6 border border-gray-300 rounded-md bg-white shadow-lg">
+    <button className="bg-gray-100 px-4 py-3 flex m-4 text-xs rounded-2xl gap-3 mx-9 hover:bg-gray-200">
+      <img src="https://www.zoomcar.com/img/icons/icons_my_location.png" className="h-5" alt="My Location" />
+      Current Location
+    </button>
 
-            {loading && <p className="text-center py-2">Loading locations...</p>}
+    <div className="bg-gray-200 mx-9">
+      <h3 className="text-sm font-bold text-center mx-7">Suggested Locations</h3>
+    </div>
 
-            {!loading && homeData?.locations.length > 0 && (
-              <div className="max-h-60 overflow-y-auto flex flex-col space-y-2 p-4 scrollbar-hide">
-                {homeData?.locations.map((location) => (
-                  <div
-                    key={location.id}
-                    className="cursor-pointer py-2 px-3 hover:bg-gray-100 flex h-14 gap-3 mx-9 border-b border-gray-300"
-                    onClick={() => {
-                      setLocationClicked(location.city_name); // Set input value
-                      setIsOpen(false); // Close dropdown
-                    }}
-                  >
-                    <img src="https://www.zoomcar.com/img/icons/icons_location.png" className="h-7" alt="" />
-                    <p className="text-sm text-black">{location.city_name}</p>
-                  </div>
-                ))}
-              </div>
-            )}
+    {loading && <p className="text-center py-2">Loading locations...</p>}
+
+    {!loading && Array.isArray(homeData?.locations) && homeData.locations.length > 0 && (
+      <div className="max-h-60 overflow-y-auto flex flex-col space-y-2 p-4 scrollbar-hide">
+        {homeData.locations.map((location) => (
+          <div
+            key={location.city_name} // Use city_name as a unique identifier
+            className="cursor-pointer py-2 px-3 hover:bg-gray-100 flex h-14 gap-3 mx-9 border-b border-gray-300"
+            onClick={() => {
+              setLocationClicked(location.city_name); // Set input value
+              setIsOpen(false); // Close dropdown
+            }}
+          >
+            <img
+              src="https://www.zoomcar.com/img/icons/icons_location.png"
+              className="h-7"
+              alt="location"
+            />
+            <p className="text-sm text-black">{location.city_name}</p>
           </div>
-        )}
+        ))}
       </div>
+    )}
+  </div>
+)}
+</div>
+
                         </Col>
                         <Col md={2}>
                             <div className="form-inputs mb-3">

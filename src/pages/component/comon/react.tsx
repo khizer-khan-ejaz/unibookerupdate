@@ -9,15 +9,14 @@ const TimeRangeSlider: React.FC<TimeRangeSliderProps> = ({ onTimeChange }) => {
   const [endTime, setEndTime] = useState(1020); // 17:00 (1020 minutes)
   const draggingRef = useRef<"start" | "end" | null>(null);
 
-  // Convert minutes to "HH:mm"
   const minutesToTimeString = (minutes: number): string => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
   };
 
-  // Handle mouse/touch movement
-  const handleDrag = (event: React.MouseEvent | React.TouchEvent) => {
+  const handleDrag = (event: MouseEvent | TouchEvent) => {
+    event.preventDefault(); // Prevent text selection during drag
     if (!draggingRef.current) return;
 
     const clientX = "touches" in event ? event.touches[0].clientX : event.clientX;
@@ -37,33 +36,28 @@ const TimeRangeSlider: React.FC<TimeRangeSliderProps> = ({ onTimeChange }) => {
     }
   };
 
-  // Handle pressing the label
   const handleMouseDown = (type: "start" | "end") => {
     draggingRef.current = type;
-    document.addEventListener("mousemove", handleDrag);
-    document.addEventListener("mouseup", handleMouseUp);
-    document.addEventListener("touchmove", handleDrag);
-    document.addEventListener("touchend", handleMouseUp);
+    document.addEventListener("mousemove", handleDrag as EventListener);
+    document.addEventListener("mouseup", handleMouseUp as EventListener);
+    document.addEventListener("touchmove", handleDrag as EventListener);
+    document.addEventListener("touchend", handleMouseUp as EventListener);
   };
 
-  // Stop dragging
   const handleMouseUp = () => {
     draggingRef.current = null;
-    document.removeEventListener("mousemove", handleDrag);
-    document.removeEventListener("mouseup", handleMouseUp);
-    document.removeEventListener("touchmove", handleDrag);
-    document.removeEventListener("touchend", handleMouseUp);
+    document.removeEventListener("mousemove", handleDrag as EventListener);
+    document.removeEventListener("mouseup", handleMouseUp as EventListener);
+    document.removeEventListener("touchmove", handleDrag as EventListener);
+    document.removeEventListener("touchend", handleMouseUp as EventListener);
   };
 
   return (
     <div className="w-full p-4">
-      {/* Start Time */}
       <div className="relative w-full mb-8 slider-container">
         <label className="block text-gray-600 mb-1">Start Time</label>
         <div className="relative w-full">
-          {/* Track */}
           <div className="absolute top-1/2 left-0 h-1 bg-gray-300 w-full rounded-full" style={{ transform: "translateY(-50%)" }} />
-          {/* Active Range */}
           <div
             className="absolute top-1/2 bg-blue-500 h-1 rounded-full"
             style={{
@@ -72,7 +66,6 @@ const TimeRangeSlider: React.FC<TimeRangeSliderProps> = ({ onTimeChange }) => {
               transform: "translateY(-50%)",
             }}
           />
-          {/* Draggable Label */}
           <span
             className="absolute bg-white shadow-md border rounded-full px-3 py-1 text-blue-500 text-sm font-semibold cursor-pointer"
             style={{
@@ -88,13 +81,10 @@ const TimeRangeSlider: React.FC<TimeRangeSliderProps> = ({ onTimeChange }) => {
         </div>
       </div>
 
-      {/* End Time */}
       <div className="relative w-full slider-container">
         <label className="block text-gray-600 mb-1">End Time</label>
         <div className="relative w-full">
-          {/* Track */}
           <div className="absolute top-1/2 left-0 h-1 bg-gray-300 w-full rounded-full" style={{ transform: "translateY(-50%)" }} />
-          {/* Active Range */}
           <div
             className="absolute top-1/2 bg-blue-500 h-1 rounded-full"
             style={{
@@ -103,7 +93,6 @@ const TimeRangeSlider: React.FC<TimeRangeSliderProps> = ({ onTimeChange }) => {
               transform: "translateY(-50%)",
             }}
           />
-          {/* Draggable Label */}
           <span
             className="absolute bg-white shadow-md border rounded-full px-3 py-1 text-blue-500 text-sm font-semibold cursor-pointer"
             style={{
