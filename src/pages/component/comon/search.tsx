@@ -90,8 +90,9 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   };
 
   return (
-    <div className="pb-9 absolute z-20 mt-1 w-5/6 max-w-x border left-20 border-black overflow-hidden rounded-md bg-white shadow-lg">
+    <div className="pb-9 absolute right-0 z-20 mt-1 w-full  border border-black overflow-hidden rounded-md bg-white shadow-lg">
       {/* Date Range Picker */}
+      <div className="md:w-5/6 md:left-20">
       <DateRangePicker
         ranges={range}
         onChange={handleDateSelect}
@@ -103,6 +104,7 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
         staticRanges={[]} 
         inputRanges={[]}
       />
+      </div>
 
       {/* Time Selection (Dual Slider) */}
       <TimeRangeSlider onTimeChange={handleTimeChange} />

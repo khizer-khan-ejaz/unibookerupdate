@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import styles from "@/styles/CarList.module.css";
 import { Col, Container, Row } from 'react-bootstrap';
 import CarCard from '../components/common/CarCard';
@@ -7,8 +7,9 @@ import { Jost } from 'next/font/google';
 import Loader from '../components/common/Loader';
 import api from '../../api/api';
 import { useAuth } from '@/context/AuthContext';
+import { Nav, Accordion, Tab, Tabs } from "react-bootstrap";
 
-import { Accordion, Nav } from "react-bootstrap";
+
 
 const jostFont = Jost({
     variable: "--font-jost",
@@ -71,6 +72,11 @@ interface OdometerRange {
 }
 
 const Index = () => {
+    const [tabs, setTabs] = useState<{ id: string; label: string }[]>([]);
+
+
+    const accordionRef = useRef<HTMLDivElement>(null);
+
     const [homeData, setHomeData] = useState<Car[]>([]);
     const [filteredData, setFilteredData] = useState<Car[]>([]);
     const [loading, setLoading] = useState(true);
@@ -88,6 +94,103 @@ const Index = () => {
     const [sortOption, setSortOption] = useState<string>("");
     const { settings } = useAuth();
     const [hasFilterChanged, setHasFilterChanged] = useState(false);
+    
+    const [activeTab, setActiveTab] = useState<string | null>(null);
+    const [activeKeys, setActiveKeys] = useState<string[]>([]);// Open all by default
+    
+    const handleToggle = (eventKey: string | null) => {
+        if (eventKey === null || eventKey === undefined) return; // Handle undefined or null
+        
+        setActiveKeys((prevKeys) =>
+            prevKeys.includes(eventKey)
+                ? prevKeys.filter((k) => k !== eventKey) // Close the accordion if it's already open
+                : [...prevKeys, eventKey] // Open the accordion if it's not open
+        );
+    };
+
+    const handleCheckboxChange = (type: string, item: { id: string; name: string }) => {
+        const tabId = `${type}-${item.id}`;
+        const tabLabel = `${type}: ${item.name}`;
+    
+        // Open or close the tab depending on whether the year is selected or not
+        if (!selectedYears.includes(item.name)) {
+            // Open the tab for this year, ensure it's added with both `id` and `label`
+            setTabs((prevTabs) => [
+                ...prevTabs,
+                { id: tabId, label: tabLabel }
+            ]);
+        } else {
+            // If the checkbox is unchecked, close the tab
+            handleTabClose(tabId);
+        }
+    };
+    
+
+    
+const handleTabClose = (tabId: string) => {
+    setTabs((prevTabs) => prevTabs.filter((tab) => tab.id !== tabId));
+    if (activeTab === tabId) {
+        setActiveTab(tabs.length > 1 ? tabs[0]?.id ?? null : null);
+    }
+};
+   // Scroll event handler for the accordion
+  
+
+// Adding event listener when mouse enters the accordion area
+const handleAccordionScroll = (e: WheelEvent) => {
+    if (!accordionRef.current) return;
+    const delta = e.deltaY;
+    const currentKey = activeKeys[0]; // Get the current active accordion item
+    const totalItems = 6; // Number of accordion items, adjust as necessary
+
+    // Scroll down
+    if (delta > 0) {
+        if (currentKey === undefined || parseInt(currentKey) < totalItems - 1) {
+            handleToggle((parseInt(currentKey || "0") + 1).toString());
+        }
+    }
+    // Scroll up
+    else if (delta < 0) {
+        if (currentKey === undefined || parseInt(currentKey) > 0) {
+            handleToggle((parseInt(currentKey || "0") - 1).toString());
+        }
+    }
+};
+
+// Adding event listener when mouse enters the accordion area
+useEffect(() => {
+    const handleMouseEnter = () => {
+        if (accordionRef.current) {
+            // Enable mouse scroll on accordion hover
+            accordionRef.current.addEventListener('wheel', handleAccordionScroll);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (accordionRef.current) {
+            // Disable mouse scroll once mouse leaves the accordion area
+            accordionRef.current.removeEventListener('wheel', handleAccordionScroll);
+        }
+    };
+
+    // Attach the hover events to the accordion
+    if (accordionRef.current) {
+        accordionRef.current.addEventListener('mouseenter', handleMouseEnter);
+        accordionRef.current.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    // Cleanup listeners on component unmount
+    return () => {
+        if (accordionRef.current) {
+            accordionRef.current.removeEventListener('mouseenter', handleMouseEnter);
+            accordionRef.current.removeEventListener('mouseleave', handleMouseLeave);
+        }
+    };
+}, [activeKeys]);
+    
+  
+    
+  
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -249,10 +352,12 @@ const Index = () => {
     const saveSelectedCar = (car: Car) => {
         sessionStorage.setItem("selectedCar", JSON.stringify(car));
     };
+    
 
     useEffect(() => {
         fetchFilteredData();
     }, [selectedBrands, selectedFeatures, selectedOdometer, sortOption]);
+    
 
     if (loading) {
         return <Loader />;
@@ -275,7 +380,32 @@ const Index = () => {
   <h2>Car List</h2>
 </Col>
 <Col>
+<Tabs activeKey={activeTab ?? undefined} onSelect={(k) => setActiveTab(k ?? null)}>
+    {tabs.map((tab) => (
+        <Tab
+            key={tab.id}
+            eventKey={tab.id}
+            title={
+                <div>
+                    {tab.label}
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation(); // Prevent tab switch
+                            handleTabClose(tab.id);
+                        }}
+                        style={{ marginLeft: "10px", background: "none", border: "none" }}
+                    >
+                        ×
+                    </button>
+                </div>
+            }
+        >
+            <div>Content for {tab.label}</div>
+        </Tab>
+    ))}
+</Tabs>
 
+     
 </Col>
 
 
@@ -297,21 +427,40 @@ const Index = () => {
                         <Col md={3}>
                             
                             <div className={styles.filter_section}>
-                           
-    <Accordion defaultActiveKey="0">
-        {/* Categories */}
+                            <div ref={accordionRef} style={{ overflowY: 'auto', maxHeight: '500px' }}>
+                            <Accordion activeKey={activeKeys} onSelect={(eventKey) => handleToggle(eventKey as string | null)}>
         <Accordion.Item eventKey="0">
             <Accordion.Header>Categories</Accordion.Header>
             <Accordion.Body>
                 <Nav className="flex-column">
                     {itemTypes.map((item) => (
-                        <Nav.Item key={item?.id}>
-                            <input
-                                type="checkbox"
-                                id={`filter-${item.id}`}
-                                checked={selectedCategories.includes(item.id.toString())}
-                                onChange={() => handleCategoryChange(item.id.toString())}
-                            />
+                        <Nav.Item key={item.id}>
+                 <input
+                type="checkbox"
+                id={`filter-${item.id}`}
+                checked={selectedCategories.includes(item.id.toString())}
+                onChange={() => {
+                    // Handle checkbox change logic
+              
+                    const categoryId = `category-${item.id}`;
+                    handleCategoryChange(item.id.toString());
+
+
+                    // Prevent adding a duplicate tab
+                    const tabExists = tabs.some((tab) => tab.id === categoryId);
+
+                    if (!tabExists) {
+                        // Open the tab for this category if it doesn't exist
+                        setTabs((prevTabs) => [
+                            ...prevTabs,
+                            { id: categoryId, label: `Category: ${item.name}` }
+                        ]);
+                    } else {
+                        // Close the tab if unchecked
+                        handleTabClose(categoryId);
+                    }
+                }}
+            />
                             <label htmlFor={`filter-${item.id}`} className="ms-2">
                                 {item.name}
                             </label>
@@ -321,35 +470,67 @@ const Index = () => {
             </Accordion.Body>
         </Accordion.Item>
 
-        {/* Price Range */}
         <Accordion.Item eventKey="1">
             <Accordion.Header>Price Range</Accordion.Header>
             <Accordion.Body>
                 <div>Range: ${priceRange[0]} - ${priceRange[1]}</div>
                 <input
-                    type="range"
-                    min={settings?.general_minimum_price}
-                    max={settings?.general_maximum_price}
-                    step="50"
-                    value={priceRange[0]}
-                    onChange={(e) => setPriceRange([parseFloat(e.target.value), priceRange[1]])}
-                />
+        type="range"
+        min={settings?.general_minimum_price}
+        max={settings?.general_maximum_price}
+        step="50"
+        value={priceRange[0]}
+        onChange={(e) => {
+            // Update price range
+            setPriceRange([parseFloat(e.target.value), priceRange[1]]);
+
+            // Open or close tab based on range selected
+            const priceRangeId = `priceRange-${priceRange[0]}-${priceRange[1]}`;
+
+            // Check if the tab exists for this price range
+            if (!tabs.some(tab => tab.id === priceRangeId)) {
+                // Open the tab for this price range
+                setTabs((prevTabs) => [
+                    ...prevTabs,
+                    { id: priceRangeId, label: `Price: $${priceRange[0]} - $${priceRange[1]}` }
+                ]);
+            } else {
+                // Close the tab if the price range is deselected (or when the range is reset)
+                handleTabClose(priceRangeId);
+            }
+        }}
+    />
             </Accordion.Body>
         </Accordion.Item>
 
-        {/* Brands */}
         <Accordion.Item eventKey="2">
             <Accordion.Header>Brands</Accordion.Header>
             <Accordion.Body>
                 <Nav className="flex-column">
                     {makes.map((make) => (
                         <Nav.Item key={make.id}>
-                            <input
-                                type="checkbox"
-                                id={`make-${make.id}`}
-                                checked={selectedBrands.includes(make.id) || sessionStorage.getItem("selectedBrand") === make.name}
-                                onChange={() => handleBrandChange(make.id)}
-                            />
+                             <input
+                type="checkbox"
+                id={`make-${make.id}`}
+                checked={selectedBrands.includes(make.id) || sessionStorage.getItem("selectedBrand") === make.name}
+                onChange={() => {
+                    
+
+                    // Check if the make is selected or deselected
+                    if (!selectedBrands.includes(make.id) && sessionStorage.getItem("selectedBrand") !== make.name) {
+                        // Open the tab for this make
+                        setTabs((prevTabs) => [
+                            ...prevTabs,
+                            { id: `make-${make.id}`, label: `Make: ${make.name}` }
+                        ]);
+                    } else {
+                        // Close the tab if the checkbox is unchecked
+                        handleTabClose(`make-${make.id}`);
+                    }
+
+                    handleBrandChange(make.id);
+                }}
+            />
                             <label htmlFor={`make-${make.id}`} className="ms-2">
                                 {make.name}
                             </label>
@@ -359,19 +540,38 @@ const Index = () => {
             </Accordion.Body>
         </Accordion.Item>
 
-        {/* Odometer */}
         <Accordion.Item eventKey="3">
             <Accordion.Header>Odometer</Accordion.Header>
             <Accordion.Body>
                 <Nav className="flex-column">
                     {odometerRanges.map((odometer) => (
                         <Nav.Item key={odometer.id}>
-                            <input
-                                type="checkbox"
-                                id={`odometer-${odometer.id}`}
-                                checked={selectedOdometer.includes(odometer.id)}
-                                onChange={() => handleOdometerChange(odometer.id)}
-                            />
+                <input
+    type="checkbox"
+    id={`odometer-${odometer.id}`}
+    checked={selectedOdometer.includes(odometer.id)}
+    onChange={() => {
+        // Handle checkbox change logic
+
+        // After updating selectedOdometer, check whether the tab should be added or removed
+        const odometerId = `odometer-${odometer.id}`;
+        const tabExists = tabs.some((tab) => tab.id === odometerId);
+
+        if (!tabExists) {
+            // Open the tab if it doesn't exist
+            setTabs((prevTabs) => [
+                ...prevTabs,
+                { id: odometerId, label: `Odometer: ${odometer.odometer}` }
+            ]);
+        } else {
+            // Close the tab if it's already open
+            handleTabClose(odometerId);
+        }
+
+        // Call the odometer change handler
+        handleOdometerChange(odometer.id);
+    }}
+/>
                             <label htmlFor={`odometer-${odometer.id}`} className="ms-2">
                                 {odometer.odometer}
                             </label>
@@ -381,7 +581,6 @@ const Index = () => {
             </Accordion.Body>
         </Accordion.Item>
 
-        {/* Features */}
         <Accordion.Item eventKey="4">
             <Accordion.Header>Features</Accordion.Header>
             <Accordion.Body>
@@ -389,11 +588,25 @@ const Index = () => {
                     {featureData.map((feature, index) => (
                         <Nav.Item key={index}>
                             <input
-                                type="checkbox"
-                                id={`feature-${feature.name}`}
-                                checked={selectedFeatures.some((f) => f.id === feature.id)}
-                                onChange={() => handleFeatureChange(feature)}
-                            />
+            type="checkbox"
+            id={`feature-${feature.name}`}
+            checked={selectedFeatures.some((f) => f.id === feature.id)}
+            onChange={() => {
+                handleFeatureChange(feature);
+
+                // Check if the feature is selected or deselected
+                if (!selectedFeatures.some((f) => f.id === feature.id)) {
+                    // Open the tab for this feature
+                    setTabs((prevTabs) => [
+                        ...prevTabs,
+                        { id: `feature-${feature.id}`, label: `Feature: ${feature.name}` }
+                    ]);
+                } else {
+                    // Close the tab if the checkbox is unchecked
+                    handleTabClose(`feature-${feature.id}`);
+                }
+            }}
+        />
                             <label htmlFor={`feature-${feature.name}`} className="ms-2">
                                 {feature.name}
                             </label>
@@ -403,7 +616,6 @@ const Index = () => {
             </Accordion.Body>
         </Accordion.Item>
 
-        {/* Year */}
         <Accordion.Item eventKey="5">
             <Accordion.Header>Year</Accordion.Header>
             <Accordion.Body>
@@ -414,7 +626,19 @@ const Index = () => {
                                 type="checkbox"
                                 id={`year-${year}`}
                                 checked={selectedYears.includes(year)}
-                                onChange={() => handleYearChange(year)}
+                                onChange={() =>{ handleYearChange(year)
+                                    if (!selectedYears.includes(year)) {
+                                        // Open the tab for this year
+                                        setTabs((prevTabs) => [
+                                            ...prevTabs,
+                                            { id: `year-${year}`, label: `Year: ${year}` }  // Ensure `label` is set
+                                        ]);
+                                    } else {
+                                        // Close the tab if it's unchecked
+                                        handleTabClose(`year-${year}`);
+                                    }
+                                }
+                            }
                             />
                             <label htmlFor={`year-${year}`} className="ms-2">
                                 {year}
@@ -425,7 +649,7 @@ const Index = () => {
             </Accordion.Body>
         </Accordion.Item>
     </Accordion>
-
+</div>
                             </div>
                         </Col>
                         <Col md={9} className='text-center'>
