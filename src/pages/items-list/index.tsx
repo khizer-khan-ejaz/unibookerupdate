@@ -108,22 +108,7 @@ const Index = () => {
         );
     };
 
-    const handleCheckboxChange = (type: string, item: { id: string; name: string }) => {
-        const tabId = `${type}-${item.id}`;
-        const tabLabel = `${type}: ${item.name}`;
-    
-        // Open or close the tab depending on whether the year is selected or not
-        if (!selectedYears.includes(item.name)) {
-            // Open the tab for this year, ensure it's added with both `id` and `label`
-            setTabs((prevTabs) => [
-                ...prevTabs,
-                { id: tabId, label: tabLabel }
-            ]);
-        } else {
-            // If the checkbox is unchecked, close the tab
-            handleTabClose(tabId);
-        }
-    };
+
     
 
     
