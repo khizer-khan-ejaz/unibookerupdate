@@ -37,18 +37,8 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
     newDate.setHours(hours, minutes, 0, 0);
     return newDate;
   };
-  const [windowWidth, setWindowWidth] = useState<number | null>(null);
+  
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setWindowWidth(window.innerWidth);
-
-      const handleResize = () => setWindowWidth(window.innerWidth);
-      window.addEventListener("resize", handleResize);
-
-      return () => window.removeEventListener("resize", handleResize);
-    }
-  }, []);
   // Handle date selection from the date range picker
   const handleDateSelect = (ranges: { [key: string]: Range }) => {
     const selectedRange = ranges.selection;
