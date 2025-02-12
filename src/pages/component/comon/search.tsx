@@ -12,24 +12,21 @@ interface CalendarComponentProps {
   ) => void;
 }
 
-
 export default function CalendarComponent({ onDateSelect }: CalendarComponentProps) {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // Reset time to start of today
+  today.setHours(0, 0, 0, 0);
 
   const [range, setRange] = useState<Range[]>([
     {
       startDate: today,
-      endDate: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000), // Default: Next 7 days
+      endDate: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000),
       key: "selection",
     },
   ]);
 
-  // Store times in "HH:mm" string format.
   const [startTime, setStartTime] = useState<string>("10:00");
   const [endTime, setEndTime] = useState<string>("18:00");
 
-  // Merge date with selected time (parses time strings like "10:00")
   const mergeDateWithTime = (date: Date | undefined, time: string): Date | null => {
     if (!date || !time) return null;
     const [hours, minutes] = time.split(":").map(Number);
@@ -37,14 +34,11 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
     newDate.setHours(hours, minutes, 0, 0);
     return newDate;
   };
-  
 
-  // Handle date selection from the date range picker
   const handleDateSelect = (ranges: { [key: string]: Range }) => {
     const selectedRange = ranges.selection;
     if (!selectedRange.startDate || !selectedRange.endDate) return;
 
-    // Prevent selecting past dates
     if (selectedRange.startDate < today) {
       selectedRange.startDate = today;
     }
@@ -66,7 +60,6 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
     }
   };
 
-  // Handle time changes coming from the TimeRangeSlider component
   const handleTimeChange = (time: string, type: "start" | "end") => {
     if (type === "start") {
       setStartTime(time);
@@ -92,22 +85,22 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   };
 
   return (
-  <div className="pb-9 absolute right-0 z-20 mt-1    max-w-[920px]  border border-gray-100 overflow-hidden rounded-md bg-white shadow-lg">
+    <div className="pb-9 absolute right-0 z-20 mt-1 max-w-[920px] border border-gray-100 overflow-hidden rounded-md bg-white shadow-lg">
       {/* Date Range Picker */}
-               <div>
-          <DateRangePicker
-            ranges={range}
-            onChange={handleDateSelect}
-            months={2}      
-            direction="horizontal"
-            minDate={today}
-            preventSnapRefocus={true}
-            staticRanges={[]}
-            inputRanges={[]}
-            className="custom-date-range-picker"
-          />
-        </div>
-      
+      <div>
+        <DateRangePicker
+          ranges={range}
+          onChange={handleDateSelect}
+          months={2}
+          direction="horizontal"
+          minDate={today}
+          preventSnapRefocus={true}
+          staticRanges={[]}
+          inputRanges={[]}
+          className="custom-date-range-picker"
+        />
+      </div>
+
       {/* Time Selection (Dual Slider) */}
       <TimeRangeSlider onTimeChange={handleTimeChange} />
     </div>
