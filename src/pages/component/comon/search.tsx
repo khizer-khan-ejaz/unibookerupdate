@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { DateRangePicker, Range } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -37,7 +37,18 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
     newDate.setHours(hours, minutes, 0, 0);
     return newDate;
   };
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
   // Handle date selection from the date range picker
   const handleDateSelect = (ranges: { [key: string]: Range }) => {
     const selectedRange = ranges.selection;
@@ -93,19 +104,21 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   return (
   <div className="pb-9 absolute right-0 z-20 mt-1    max-w-[920px]  border border-gray-100 overflow-hidden rounded-md bg-white shadow-lg">
       {/* Date Range Picker */}
-      <div style={{ fontSize: window.innerWidth <= 768 ? '12px' : '16px' }}>
-  <DateRangePicker
-    ranges={range}
-    onChange={handleDateSelect}
-    months={window.innerWidth <= 768 ? 1 : 2} // Display 1 month on mobile, 2 months on desktop
-    direction="horizontal"
-    minDate={today}
-    preventSnapRefocus={true}
-    staticRanges={[]}
-    inputRanges={[]}
-    className="custom-date-range-picker"
-  />
-</div>
+      {windowWidth !== null && (
+        <div style={{ fontSize: windowWidth <= 768 ? "12px" : "16px" }}>
+          <DateRangePicker
+            ranges={range}
+            onChange={handleDateSelect}
+            months={windowWidth <= 768 ? 1 : 2}
+            direction="horizontal"
+            minDate={today}
+            preventSnapRefocus={true}
+            staticRanges={[]}
+            inputRanges={[]}
+            className="custom-date-range-picker"
+          />
+        </div>
+      )}
       {/* Time Selection (Dual Slider) */}
       <TimeRangeSlider onTimeChange={handleTimeChange} />
     </div>
