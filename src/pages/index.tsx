@@ -159,7 +159,7 @@ export default function Home() {
   const [homeData, setHomeData] = useState<HomeData | null>(null);
   const [locationClicked, setLocationClicked] = useState<string | undefined>(undefined); // eslint-disable-line
   
-  const [loading, setLoading] = useState(true);
+  
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
     const [startDate, setStartDate] = useState<string>('');
@@ -247,10 +247,10 @@ const handleDateChange = (
           try {
             const response = await api.get("/homeData");
             setHomeData(response.data.data);
-            setLoading(false);
+            
           } catch (error) {
             console.error("Error fetching home data:", error);
-            setLoading(false);
+           
           }
         };
         fetchData();
@@ -271,10 +271,10 @@ const handleDateChange = (
         try {
           const response = await api.get("/homeData");
           setHomeData(response.data.data);
-          setLoading(false);
+      
         } catch (error) {
           console.error("Error fetching home data:", error);
-          setLoading(false);
+          
         }
       };
       fetchData();
@@ -359,9 +359,9 @@ const handleDateChange = (
       <h3 className="text-sm font-bold text-center mx-7">Suggested Locations</h3>
     </div>
 
-    {loading && <p className="text-center py-2">Loading locations...</p>}
+   
 
-    {!loading && Array.isArray(homeData?.locations) && homeData.locations.length > 0 && (
+    { Array.isArray(homeData?.locations) && homeData.locations.length > 0 && (
       <div className="max-h-60 overflow-y-auto flex flex-col space-y-2 p-4 scrollbar-hide">
         {homeData.locations.map((location) => (
           <div
