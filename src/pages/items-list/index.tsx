@@ -208,7 +208,7 @@ useEffect(() => {
             } catch (error) {
                 console.error("Error fetching home data:", error);
             } finally {
-                setLoading(false);
+               
             }
         };
         fetchData();
@@ -249,7 +249,7 @@ useEffect(() => {
     const fetchFilteredData = async () => {
         if (!hasFilterChanged) return;
         try {
-            setLoading(true);
+           
             const params: Record<string, string> = {};
 
             if (selectedBrands.length > 0) {
@@ -276,7 +276,7 @@ useEffect(() => {
         } catch (error) {
             console.error("Error fetching filtered data:", error);
         } finally {
-            setLoading(false);
+           
         }
     };
 

@@ -20,8 +20,7 @@ const jostFont = Jost({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     const handleRouteChangeStart = () => setLoading(true);
     const handleRouteChangeComplete = () => setLoading(false);
