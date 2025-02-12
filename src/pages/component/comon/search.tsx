@@ -105,11 +105,11 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   <div className="pb-9 absolute right-0 z-20 mt-1    max-w-[920px]  border border-gray-100 overflow-hidden rounded-md bg-white shadow-lg">
       {/* Date Range Picker */}
       {windowWidth !== null && (
-        <div style={{ fontSize: windowWidth <= 768 ? "12px" : "16px" }}>
+        <div>
           <DateRangePicker
             ranges={range}
             onChange={handleDateSelect}
-            months={windowWidth <= 768 ? 1 : 2}
+            
             direction="horizontal"
             minDate={today}
             preventSnapRefocus={true}
