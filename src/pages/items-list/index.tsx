@@ -78,7 +78,7 @@ const Index = () => {
 
     const [homeData, setHomeData] = useState<Car[]>([]);
     const [filteredData, setFilteredData] = useState<Car[]>([]);
-    const [loading, setLoading] = useState(true);
+    
     const [itemTypes, setItemTypes] = useState<ItemType[]>([]);
     const [makes, setMakes] = useState<Make[]>([]);
     const [selectedBrands, setSelectedBrands] = useState<Array<number>>([]);

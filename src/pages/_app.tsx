@@ -8,7 +8,7 @@ import Footer from "./components/common/Footer";
 import { AuthProvider } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import Router from "next/router";
-import LoadingSkeleton from "./components/common/LoadingSkeleton";
+
 import { Jost } from "next/font/google";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";

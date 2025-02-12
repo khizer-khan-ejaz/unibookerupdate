@@ -48,11 +48,9 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [suggestions, setSuggestions] = useState<Place[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const [userLocation, setUserLocation] = useState<{ lat: number; long: number } | null>(null);
-  const [locationClicked, setLocationClicked] = useState<string | undefined>(undefined); // eslint-disable-line
   
-
+  const [userLocation, setUserLocation] = useState<{ lat: number; long: number } | null>(null);
+ 
     
   
   useEffect(() => {
@@ -102,7 +100,7 @@ const Header = () => {
   };
 
   const handleSuggestionClick = (suggestion: Place) => {
-    setSelectedPlace(suggestion);
+  
     setSearchQuery(suggestion.name);
     setSuggestions([]);
     triggerItemSearch(suggestion.name);
