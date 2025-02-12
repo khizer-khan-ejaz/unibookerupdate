@@ -474,3 +474,12 @@ select#endTime option[value=""] {
   margin-left: 5px;
   color: #888; /* Slightly darker color for the 'x' */
 }
+.custom-date-range-picker {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .custom-date-range-picker {
+    font-size: 1px;
+  }
+}

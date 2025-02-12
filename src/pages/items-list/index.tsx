@@ -4,7 +4,6 @@ import styles from "@/styles/CarList.module.css";
 import { Col, Container, Row } from 'react-bootstrap';
 import CarCard from '../components/common/CarCard';
 import { Jost } from 'next/font/google';
-import Loader from '../components/common/Loader';
 import api from '../../api/api';
 import { useAuth } from '@/context/AuthContext';
 import { Nav, Accordion, Tab, Tabs } from "react-bootstrap";
@@ -344,9 +343,7 @@ useEffect(() => {
     }, [selectedBrands, selectedFeatures, selectedOdometer, sortOption]);
     
 
-    if (loading) {
-        return <Loader />;
-    }
+
 
     return (
         <>

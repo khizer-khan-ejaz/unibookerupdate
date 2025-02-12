@@ -10,7 +10,6 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import Newsletter from '../components/common/Newsletter';
 import api from '../api/api';
-import Loader from '../components/common/Loader';
 
 interface Feature {
     id: string | number;
@@ -154,9 +153,7 @@ const CarDetails = () => {
         }
     };
 
-    if (!carDetails) {
-        return <Loader />;
-    }
+   
 
     return (
         <>

@@ -81,42 +81,44 @@ export default function LogoCarousel() {
 
   return (
     <div className="w-full flex justify-center items-center py-4">
-      {loading && <p>Loading logos...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-
-      {!loading && !error && logos.length > 0 && (
-        <Swiper
-          modules={[Navigation]}
-          slidesPerView={4}
-          spaceBetween={30}
-          navigation
-          loop
-          className="w-full"
-        >
-          {homeData?.makes.map((make) => (
-            <SwiperSlide key={make.id}> {/* ✅ Corrected key placement */}
-              <section className={styles.company_logos}>
-                <div className={styles.company_logos_row}>
-                  <div>
-                    <div
-                      className={styles.company_logos_div}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <Image
-                        src={make.imageURL}
-                        alt={make.name}
-                        width={100}
-                        height={100}
-                        layout="intrinsic"
-                      />
-                    </div>
+    {loading && <p>Loading logos...</p>}
+    {error && <p className="text-red-500">{error}</p>}
+  
+    {!loading && !error && logos.length > 0 && (
+      <Swiper
+        modules={[Navigation]}
+        slidesPerView={window.innerWidth <= 640 ? 1 : window.innerWidth <= 768 ? 2 : window.innerWidth <= 1024 ? 3 : 4}
+        spaceBetween={30}
+        navigation
+        loop
+        className="w-full"
+      >
+        {homeData?.makes.map((make) => (
+          <SwiperSlide key={make.id}>
+            <section className={styles.company_logos}>
+              <div className={styles.company_logos_row}>
+                <div>
+                  <div
+                    className={styles.company_logos_div}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Image
+                      src={make.imageURL}
+                      alt={make.name}
+                      width={100}
+                      height={100}
+                      layout="intrinsic"
+                    />
                   </div>
                 </div>
-              </section>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
-    </div>
+              </div>
+            </section>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    )}
+  </div>
+  
+    
   );
 }

@@ -16,6 +16,7 @@ module.exports = {
   		colors: {
   			customCyan: '#17BEBB',
   			customwhite: '#F6F6F6',
+			customgray: '#f7f7f7',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

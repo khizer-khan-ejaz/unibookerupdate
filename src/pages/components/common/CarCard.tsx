@@ -76,6 +76,11 @@ const CarCard: React.FC<CarCardProps> = ({
   };
 
   return (
+    <Link
+    href={`/items/${id}`}
+    className={styles.carName}
+    onClick={() => saveSelectedCar({ id, name, image, item_rating })} // ✅ Properly typed function
+  >
     <div className={styles.carCard}>
       {/* Car Image */}
       <div className={styles.carImage}>
@@ -127,6 +132,7 @@ const CarCard: React.FC<CarCardProps> = ({
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

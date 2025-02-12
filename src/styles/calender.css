@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    .custom-date-range-picker {
+      font-size: 16px; /* Smaller font size for mobile */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .custom-date-range-picker {
+      font-size: 12px; /* Larger font size for desktop */
+    }
+  }

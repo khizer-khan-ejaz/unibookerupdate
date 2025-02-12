@@ -10,8 +10,6 @@ import testimonial from '../Images/testimonial.png'
 import person1 from '../Images/person1.jpg'
 import Newsletter from "./components/common/Newsletter";
 import { BsShieldFillCheck } from "react-icons/bs";
-
-import Loader from "./components/common/Loader";
 import Popularlocations from './components/common/PopularLocations'
 import Slider from "react-slick";
 import styles from "@/styles/Home.module.css";
@@ -166,6 +164,8 @@ export default function Home() {
     const [isOpenCalendar, setIsOpenCalendar] = useState(false);
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
+ 
+
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   
@@ -175,33 +175,52 @@ export default function Home() {
   
  
        
-    // Handle calendar selection
-    const handleDateChange = (
-      selectedRange: { startDate: Date; endDate: Date },
-   
-    ) => {
-      // Convert Date to the desired string format: "Fri Mar 07 2025"
-      const startFormatted = selectedRange.startDate.toLocaleDateString('en-US', {
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: '2-digit',
-      });
-      
-      const endFormatted = selectedRange.endDate.toLocaleDateString('en-US', {
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: '2-digit',
-      });
+  
+
+const handleDateChange = (
+  selectedRange: { startDate: Date; endDate: Date }
+) => {
+  // Convert Date to the desired string format: "Fri Mar 07 2025"
+  const startFormattedDate = selectedRange.startDate.toLocaleDateString('en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
+
+  const endFormattedDate = selectedRange.endDate.toLocaleDateString('en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
+
+  // Extract the time in "HH:mm" format
+  const startTime = selectedRange.startDate.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const endTime = selectedRange.endDate.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  // Combine the date and time
+  const startDateTime = `${startFormattedDate} ${startTime}`;
+  const endDateTime = `${endFormattedDate} ${endTime}`;
+
+  setStartDate(startDateTime); // Set start date and time
+  setEndDate(endDateTime); // Set end date and time
+
+  // Optionally, log formatted times and dates
+  console.log('Start Date and Time:', startDateTime);
+  console.log('End Date and Time:', endDateTime);
+};
+
+
+
     
-      setStartDate(startFormatted); // Set formatted date as string
-      setEndDate(endFormatted); // Set formatted date as string
-    
-      // Optionally, log formatted times
-      console.log('Start Time:', startFormatted);
-      console.log('End Time:', endFormatted);
-    };
     
 
   
@@ -270,9 +289,6 @@ export default function Home() {
   
   
 
-  if (loading) {
-    return <Loader />;
-  }
 
   const testimonials = [
     {
@@ -333,7 +349,7 @@ export default function Home() {
 />
 
 {isOpen && (
-  <div className="absolute mt-2 w-3/6 border border-gray-300 rounded-md bg-white shadow-lg">
+  <div ref={dropdownRef} className="absolute mt-2 w-3/6 border border-gray-300 rounded-md bg-white shadow-lg">
     <button className="bg-gray-100 px-4 py-3 flex m-4 text-xs rounded-2xl gap-3 mx-9 hover:bg-gray-200">
       <img src="https://www.zoomcar.com/img/icons/icons_my_location.png" className="h-5" alt="My Location" />
       Current Location

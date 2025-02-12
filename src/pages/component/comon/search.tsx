@@ -12,6 +12,7 @@ interface CalendarComponentProps {
   ) => void;
 }
 
+
 export default function CalendarComponent({ onDateSelect }: CalendarComponentProps) {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Reset time to start of today
@@ -90,22 +91,21 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   };
 
   return (
-    <div className="pb-9 absolute right-0 z-20 mt-1 w-full  border border-black overflow-hidden rounded-md bg-white shadow-lg">
+  <div className="pb-9 absolute right-0 z-20 mt-1    max-w-[920px]  border border-gray-100 overflow-hidden rounded-md bg-white shadow-lg">
       {/* Date Range Picker */}
-      <div className="md:w-5/6 md:left-20">
-      <DateRangePicker
-        ranges={range}
-        onChange={handleDateSelect}
-        months={2} // Show 2 months
-        direction="horizontal"
-        minDate={today} // Prevent past date selection
-        moveRangeOnFirstSelection={false} // Prevents auto-merging of months
-        preventSnapRefocus={true} // Stops auto-jumping
-        staticRanges={[]} 
-        inputRanges={[]}
-      />
-      </div>
-
+      <div style={{ fontSize: window.innerWidth <= 768 ? '12px' : '16px' }}>
+  <DateRangePicker
+    ranges={range}
+    onChange={handleDateSelect}
+    months={window.innerWidth <= 768 ? 1 : 2} // Display 1 month on mobile, 2 months on desktop
+    direction="horizontal"
+    minDate={today}
+    preventSnapRefocus={true}
+    staticRanges={[]}
+    inputRanges={[]}
+    className="custom-date-range-picker"
+  />
+</div>
       {/* Time Selection (Dual Slider) */}
       <TimeRangeSlider onTimeChange={handleTimeChange} />
     </div>

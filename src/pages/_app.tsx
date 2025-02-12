@@ -41,13 +41,13 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <ThemeProvider>
         <Header />
-        {loading ? (
-          <LoadingSkeleton />
-        ) : (
+      
+          
+       
           <div className={jostFont.variable}>
             <Component {...pageProps} />
           </div>
-        )}
+      
         <Footer />
         <ToastContainer />
       </ThemeProvider>

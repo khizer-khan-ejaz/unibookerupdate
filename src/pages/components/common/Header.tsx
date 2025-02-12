@@ -7,7 +7,7 @@ import wishlist from '../../../Images/heart.svg';
 import cart from '../../../Images/cart.svg';
 import styles from "@/styles/Layout.module.css";
 import { Navbar, Nav, Dropdown } from 'react-bootstrap';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState,useRef } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '@/context/AuthContext';
@@ -50,6 +50,10 @@ const Header = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [userLocation, setUserLocation] = useState<{ lat: number; long: number } | null>(null);
+  const [locationClicked, setLocationClicked] = useState<string | undefined>(undefined); // eslint-disable-line
+  
+
+    
   
   useEffect(() => {
     const storedData = localStorage.getItem("userData");
@@ -180,6 +184,7 @@ const Header = () => {
                   ))}
                 </ul>
               )}
+              
             </>
           ) : (
             <Navbar expand="lg" className={styles['menu-section']}>
@@ -191,10 +196,15 @@ const Header = () => {
                   <Nav.Link className={`${styles['nav-link']}`} href="/items-list">Items List</Nav.Link>
                   <Nav.Link className={`${styles['nav-link']}`} href="/place">Place</Nav.Link>
                   <Nav.Link className={`${styles['nav-link']}`} href="/contact">Contact Us</Nav.Link>
+                  
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
-          )}
+            
+          )
+          
+          }
+          
           {/* Profile Section with Dropdown */}
           {!isHomePage ? (
             <div className={`d-flex gap-3 ${styles.ProfileSection}`}>

@@ -58,4 +58,14 @@
   .sidebarClosed .menu span {
     display: none;
   }
+  @media (max-width: 768px) {
+    .custom-1 {
+      font-size: 16px; /* Smaller font size for mobile */
+    }
+  }
   
+  @media (min-width: 768px) {
+    .custom-1 {
+      font-size: 12px; /* Larger font size for desktop */
+    }
+  }
