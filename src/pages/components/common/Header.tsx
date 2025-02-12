@@ -7,7 +7,7 @@ import wishlist from '../../../Images/heart.svg';
 import cart from '../../../Images/cart.svg';
 import styles from "@/styles/Layout.module.css";
 import { Navbar, Nav, Dropdown } from 'react-bootstrap';
-import { ChangeEvent, useEffect, useState,useRef } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '@/context/AuthContext';
