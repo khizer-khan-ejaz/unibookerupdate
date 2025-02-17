@@ -1,3 +1,5 @@
+"use client"; // If using Next.js App Router
+
 import { useState, useEffect } from "react";
 import { DateRangePicker, Range } from "react-date-range";
 import "react-date-range/dist/styles.css";
@@ -26,13 +28,17 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
 
   const [startTime, setStartTime] = useState<string>("10:00");
   const [endTime, setEndTime] = useState<string>("18:00");
-  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState<boolean>(false); // ✅ Prevent SSR issues
 
-  // Update screen size dynamically
+  // ✅ Ensure `window` is only used in `useEffect`
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    if (typeof window !== "undefined") {
+      setIsMobile(window.innerWidth < 768);
+
+      const handleResize = () => setIsMobile(window.innerWidth < 768);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []);
 
   const mergeDateWithTime = (date: Date | undefined, time: string): Date | null => {
