@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from "../../styles/CarDetails.module.css";
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import { Jost } from 'next/font/google';
-import { BsFillSendFill, BsStarFill } from 'react-icons/bs'
+import { BsStarFill } from 'react-icons/bs'
 import Image from 'next/image';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
@@ -117,41 +117,7 @@ const CarDetails = () => {
         }
     }, []);
 
-    const handleViewProfile = async () => {
-        if (!profile) {
-            console.error("User profile not available in local storage.");
-            return;
-        }
-        try {
-            const userProfileResponse = await api.get('/getUserProfile', {
-                params: {
-                    userid: carDetails?.item_info.host_id,
-                    token: profile.token,
-                },
-            });
-            const userProfile = userProfileResponse.data.data;
-            const vendorReviewsResponse = await api.get('/getVendorItemReviews', {
-                params: {
-                    userid: carDetails?.item_info.host_id,
-                    token: profile.token,
-                },
-            });
-            const vendorReviews = vendorReviewsResponse.data.data;
-            const userItemsResponse = await api.get('/getUseritems', {
-                params: {
-                    userid: carDetails?.item_info.host_id,
-                    token: profile.token,
-                },
-            });
-            const userItems = userItemsResponse.data.data;
-            sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
-            sessionStorage.setItem("vendorReviews", JSON.stringify(vendorReviews));
-            sessionStorage.setItem("userItems", JSON.stringify(userItems));
-            router.push("/host-profile");
-        } catch (error) {
-            console.error("Error fetching data for profile view:", error);
-        }
-    };
+ 
 
     if (!carDetails) {
         return <Loader />;
@@ -162,37 +128,56 @@ const CarDetails = () => {
             <section className={`${styles.page} ${jostFont.variable} ${styles.carDetailMain}`}>
                 <Container>
                     <Row>
-                        <Col md={6}>
-                            <div className={styles.carDetailImage}>
-                                <Zoom>
-                                    <Image
-                                        src={selectedImage || ""}
-                                        alt={carDetails.name}
-                                        width={500}
-                                        height={500}
-                                        className={styles.mainImage}
-                                    />
-                                </Zoom>
-                            </div>
-                            <div className={styles.thumbnailGallery}>
-                                <Row className="mt-3">
-                                    {carDetails.item_info.gallery_image_urls.map((img, index) => (
-                                        <Col key={index} xs={3}>
-                                            <Image
-                                                src={img}
-                                                alt={`Thumbnail ${index + 1}`}
-                                                width={100}
-                                                height={100}
-                                                className={`${styles.thumbnail} ${selectedImage === img ? styles.activeThumbnail : ''}`}
-                                                onClick={() => handleThumbnailClick(img)}
-                                            />
-                                        </Col>
-                                    ))}
-                                </Row>
-                            </div>
-                        </Col>
-                        <Col md={6}>
+                    <Row md={8} className="d-flex">
+    {/* Main Image */}
+    <div className={styles.carDetailImage} style={{ flex: 1 }}>
+        <Zoom>
+            <Image
+                src={selectedImage || ""}
+                alt={carDetails.name}
+                width={300}
+                height={300}
+                className={styles.mainImage}
+            />
+        </Zoom>
+    </div>
+    
+    {/* Thumbnail Gallery */}
+    <div className={styles.thumbnailGallery} style={{ flex: 1 }}>
+    <Row className="mt-3">
+        {carDetails.item_info.gallery_image_urls.map((img, index) => (
+            <Col key={index} xs={4} className="d-flex mb-3">
+                {/* Image */}
+                <Image
+                    src={img}
+                    alt={`Thumbnail ${index + 1}`}
+                    width={400}
+                    height={400}
+                    className={`${styles.thumbnail} ${selectedImage === img ? styles.activeThumbnail : ''}`}
+                    onClick={() => handleThumbnailClick(img)}
+                    style={{ marginRight: '15px' }}
+                />
+            </Col>
+        ))}
+    </Row>
+</div>
+
+</Row>
+
+                        <Col md={8}>
                             <div className={styles.carDetailContent}>
+                            <div className={styles.PersonDetailBox}>
+                                    <div className={styles.personBox}>
+                                        <Image src={carDetails?.item_info?.host_profile_image} alt={carDetails?.item_info?.host_first_name} className={styles.postedPersonImg} width={25} height={25} />
+                                        <div >
+                                            <h4 className="text-sm">Hosted by {carDetails?.item_info?.host_first_name} {carDetails?.item_info?.host_last_name}</h4>
+                                           
+                                        </div>
+                                    </div>
+                                    <div className={styles.personBoxIcon}>
+                                        
+                                    </div>
+                                </div>
                                 <div className={styles.carDetailContentHeading}>
                                     <div>
                                         <h1>{carDetails?.name}</h1>
@@ -202,21 +187,11 @@ const CarDetails = () => {
                                         </svg> {carDetails?.address}</p>
                                     </div>
                                     <div className={styles.carDetailRating}>
-                                        <p>{carDetails?.item_rating} <BsStarFill /></p>
+                                      <p><BsStarFill /> {carDetails?.item_rating} </p>
+                                      <span className="pl-8">{carDetails?.reviews}Reviews</span>
                                     </div>
                                 </div>
-                                <div className={styles.PersonDetailBox}>
-                                    <div className={styles.personBox}>
-                                        <Image src={carDetails?.item_info?.host_profile_image} alt={carDetails?.item_info?.host_first_name} className={styles.postedPersonImg} width={65} height={65} />
-                                        <div className={styles.personBoxContact}>
-                                            <h4>Hosted by {carDetails?.item_info?.host_first_name} {carDetails?.item_info?.host_last_name}</h4>
-                                            <button onClick={handleViewProfile}>View Profile</button>
-                                        </div>
-                                    </div>
-                                    <div className={styles.personBoxIcon}>
-                                        <BsFillSendFill />
-                                    </div>
-                                </div>
+                                
                                 <div className={styles.carDetailBox}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M12 3.6C10.795 3.6 9.81818 4.67454 9.81818 6C9.81818 7.32546 10.795 8.4 12 8.4C13.2044 8.39832 14.1803 7.3248 14.1818 6C14.1818 4.67454 13.205 3.6 12 3.6ZM12 7.2C11.3975 7.2 10.9091 6.66277 10.9091 6C10.9091 5.33723 11.3975 4.8 12 4.8C12.6023 4.80044 13.0905 5.33745 13.0909 6C13.0909 6.66277 12.6025 7.2 12 7.2ZM12 15.6C10.795 15.6 9.81818 16.6745 9.81818 18C9.81818 19.3255 10.795 20.4 12 20.4C13.2044 20.3983 14.1803 19.3248 14.1818 18C14.1818 16.6745 13.205 15.6 12 15.6ZM12 19.2C11.3975 19.2 10.9091 18.6628 10.9091 18C10.9091 17.3372 11.3975 16.8 12 16.8C12.6023 16.8004 13.0905 17.3375 13.0909 18C13.0909 18.6628 12.6025 19.2 12 19.2ZM24 3C23.9998 2.66887 23.7556 2.39978 23.4545 2.4H18.4462C18.1268 1.02371 17.0024 0.00139164 15.652 0H8.34801C6.99763 0.00139164 5.87316 1.02371 5.55382 2.4H0.545455C0.244429 2.40022 -0.000199623 2.6688 1.22236e-07 3C0.000532813 5.23455 1.01294 7.20593 2.55782 8.4H0.545455C0.244429 8.40022 -0.000199623 8.6688 1.22236e-07 9C0.000532813 11.2345 1.01294 13.2059 2.55782 14.4H0.545455C0.244429 14.4002 -0.000199623 14.6688 1.22236e-07 15C0.000799104 18.4764 2.44582 21.3183 5.5467 21.5747C5.85778 22.9641 6.98917 23.9985 8.34801 24H15.652C17.0108 23.9985 18.1422 22.9641 18.4533 21.5747C21.5542 21.3183 23.9992 18.4764 24 15C23.9998 14.6689 23.7556 14.3998 23.4545 14.4H21.4422C22.9871 13.2059 23.9995 11.2345 24 9C23.9998 8.66887 23.7556 8.39978 23.4545 8.4H21.4422C22.9871 7.20593 23.9995 5.23455 24 3ZM5.45455 20.366C3.17551 20.0856 1.37669 18.1069 1.1218 15.6H5.45455V20.366ZM5.45455 14.366C3.17551 14.0856 1.37669 12.1069 1.1218 9.6H5.45455V14.366ZM5.45455 8.36602C3.17551 8.08564 1.37669 6.10693 1.1218 3.6H5.45455V8.36602ZM17.4545 9V15V20.8172C17.4534 21.9118 16.6471 22.7988 15.652 22.8H8.34801C7.35292 22.7988 6.54659 21.9118 6.54545 20.8172V15V9V3.18281C6.54659 2.08821 7.35292 1.20125 8.34801 1.2H15.652C16.6471 1.20125 17.4534 2.08821 17.4545 3.18281V9ZM22.8782 15.6C22.6233 18.1069 20.8245 20.0856 18.5455 20.366V15.6H22.8782ZM22.8782 9.6C22.6233 12.1069 20.8245 14.0856 18.5455 14.366V9.6H22.8782ZM18.5455 8.36602V3.6H22.8782C22.6233 6.10693 20.8245 8.08564 18.5455 8.36602ZM12 9.6C10.795 9.6 9.81818 10.6745 9.81818 12C9.81818 13.3255 10.795 14.4 12 14.4C13.2044 14.3983 14.1803 13.3248 14.1818 12C14.1818 10.6745 13.205 9.6 12 9.6ZM12 13.2C11.3975 13.2 10.9091 12.6628 10.9091 12C10.9091 11.3372 11.3975 10.8 12 10.8C12.6023 10.8004 13.0905 11.3375 13.0909 12C13.0909 12.6628 12.6025 13.2 12 13.2Z" fill="#17BEBB" />

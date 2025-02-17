@@ -102,6 +102,10 @@ interface HomeData {
     name: string;
     logo: string;
   }[];
+  nearby_items:{
+    address:string;
+  }[];
+
 }
 
 const jostFont = Jost({
@@ -207,8 +211,8 @@ const handleDateChange = (
   });
 
   // Combine the date and time
-  const startDateTime = `${startFormattedDate} ${startTime}`;
-  const endDateTime = `${endFormattedDate} ${endTime}`;
+  const startDateTime = `${startFormattedDate}/${startTime}`;
+  const endDateTime = `${endFormattedDate}/${endTime}`;
 
   setStartDate(startDateTime); // Set start date and time
   setEndDate(endDateTime); // Set end date and time
@@ -265,13 +269,35 @@ const handleDateChange = (
       };
     }, []); // Empty dependency array ensures this effect only runs once on mount
     
-
+    const handleSearch = () => {
+      if (!startDate || !endDate || !locationClicked) return;
+    
+      // Assuming startDate and endDate are formatted as "Fri Mar 07 2025/14:30"
+      const [startDateOnly, startTime] = startDate.split('/'); // Split date & time
+      const [endDateOnly, endTime] = endDate.split('/'); // Split date & time
+    
+      // Redirect to /results page with separate query parameters
+      router.push({
+        pathname: "/car-list",
+        query: {
+          startDate: startDateOnly,
+          startTime: startTime,
+          endDate: endDateOnly,
+          endTime: endTime,
+          location: locationClicked, // Ensure it's correctly formatted
+        },
+      });
+    };
   useEffect(() => {
       const fetchData = async () => {
         try {
+
           const response = await api.get("/homeData");
+        
+          console.log(response.data.data.nearby_items);
           setHomeData(response.data.data);
       
+
         } catch (error) {
           console.error("Error fetching home data:", error);
           
@@ -321,54 +347,61 @@ const handleDateChange = (
               <Col md={12}>
                 <Card className={styles.search_box}>
                   <Card.Body>
-                    <form>
-                      <Row>
-                        <Col md={2}>
-                          <div className="form-inputs mb-3">
-                            <label htmlFor="city">City</label>
-                            <select id="city" className="form-control">
-                              {homeData?.locations.map((location, index) => (
-                                <option key={index} value={location.city_name}>
-                                  {location.city_name}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </Col>
-                        <Col md={4}>
-                        <div className="form-inputs mb-3" ref={dropdownRef}>
-                        <label htmlFor="location">Location</label>
-                        <input
-  id="location"
-  type="text"
-  className="form-control"
-  placeholder="Enter a location"
-  value={locationClicked}
-  onClick={() => setIsOpen(true)}
-  readOnly
-/>
+                      <form  onSubmit={(e) => {
+                      e.preventDefault();
+                     
+                     
+                      handleSearch();
+                  }}>
+                        <Row>
+                          <Col md={2}>
+                            <div className="form-inputs mb-3">
+                              <label htmlFor="city">City</label>
+                              <select id="city" className="form-control">
+                                {homeData?.locations.map((location, index) => (
+                                  <option key={index} value={location.city_name}>
+                                    {location.city_name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </Col>
+                          <Col md={4}>
+                          <div className="form-inputs mb-3" ref={dropdownRef}>
+                          <label htmlFor="location">Location</label>
+                          <input
+    id="location"
+    type="text"
+    className="form-control"
+    placeholder="Enter a location"
+    value={locationClicked}
+    onClick={() => setIsOpen(true)}
+    readOnly
+  />
 
 {isOpen && (
-  <div ref={dropdownRef} className="absolute mt-2 w-3/6 border border-gray-300 rounded-md bg-white shadow-lg">
+  <div ref={dropdownRef} className="absolute mt-2 w-full sm:w-4/6 md:w-3/6  border border-gray-300 rounded-3xl bg-white shadow-lg">
+    
+    {/* Current Location Button */}
     <button className="bg-gray-100 px-4 py-3 flex m-4 text-xs rounded-2xl gap-3 mx-9 hover:bg-gray-200">
       <img src="https://www.zoomcar.com/img/icons/icons_my_location.png" className="h-5" alt="My Location" />
       Current Location
     </button>
 
+    {/* Suggested Locations Header */}
     <div className="bg-gray-200 mx-9">
       <h3 className="text-sm font-bold text-center mx-7">Suggested Locations</h3>
     </div>
 
-   
-
-    { Array.isArray(homeData?.locations) && homeData.locations.length > 0 && (
-      <div className="max-h-60 overflow-y-auto flex flex-col space-y-2 p-4 scrollbar-hide">
-        {homeData.locations.map((location) => (
+    {/* Location List */}
+    {Array.isArray(homeData?.nearby_items) && homeData.nearby_items.length > 0 && (
+      <div className="max-h-80  max-w-100 overflow-y-auto flex flex-col  space-y-2 p-4 scrollbar-hide">
+        {homeData.nearby_items.map((address) => (
           <div
-            key={location.city_name} // Use city_name as a unique identifier
+            key={address.address} // Use city_name as a unique identifier
             className="cursor-pointer py-2 px-3 hover:bg-gray-100 flex h-14 gap-3 mx-9 border-b border-gray-300"
             onClick={() => {
-              setLocationClicked(location.city_name); // Set input value
+              setLocationClicked(address.address); // Set input value
               setIsOpen(false); // Close dropdown
             }}
           >
@@ -377,65 +410,65 @@ const handleDateChange = (
               className="h-7"
               alt="location"
             />
-            <p className="text-sm text-black">{location.city_name}</p>
+            <p className="text-sm text-black">{address.address}</p>
           </div>
         ))}
       </div>
     )}
   </div>
 )}
-</div>
+  </div>
 
-                        </Col>
-                        <Col md={2}>
-                            <div className="form-inputs mb-3">
-                                                 <label htmlFor="city" className="text-gray-500 ml-5 mt-2 text text-xs ">Trip Starts</label>
-                                                 <div className="">
-                               
-                                      <input
-                                        id="location"
-                                        type="Text"
-                                        className=" form-control"
-                                        onClick={handleCalendarClick}  // Opens the calendar
-                                           // Closes the calendar
-                                           value={startDate}
-                                           readOnly
-                                         
-                                      />
-                                    
+                          </Col>
+                          <Col md={2}>
+                              <div className="form-inputs mb-3">
+                                                  <label htmlFor="city" className="text-gray-500 ml-5 mt-2 text text-xs ">Trip Starts</label>
+                                                  <div className="">
+                                
+                                        <input
+                                          id="location"
+                                          type="Text"
+                                          className=" form-control"
+                                          onClick={handleCalendarClick}  // Opens the calendar
+                                            // Closes the calendar
+                                            value={startDate}
+                                            readOnly
+                                          
+                                        />
                                       
-                                    {isOpenCalendar &&  ( 
-                                        <div ref={calendarRef} >
-                                      <CalendarComponent   onDateSelect={handleDateChange}   />  </div>)} {/* Custom calendar component */}
+                                        
+                                      {isOpenCalendar &&  ( 
+                                          <div ref={calendarRef} >
+                                        <CalendarComponent   onDateSelect={handleDateChange}   />  </div>)} {/* Custom calendar component */}
+                                      
+                            
                                     
-                          
-                                  
-                                  </div> 
-                                               
-                                               </div>
-                        </Col>
-                        <Col md={2}>
-                          <div className="form-inputs mb-3">
-                            <label htmlFor="endDate">Trip Ends</label>
-                            <input
-                         id="location"
-                         type="text"
-                         className="   form-control" 
-                         placeholder="Enter a location"
-                         onClick={handleCalendarClick}  // Opens the calendar
-                 // Closes the calendar
-                 value={endDate}
-                 readOnly 
-                       />
-                          </div>
-                        </Col>
-                        <Col md={2}>
-                          <Button className={styles.theme_btn} type="submit">
-                            Search Car
-                          </Button>
-                        </Col>
-                      </Row>
-                    </form>
+                                    </div> 
+                                                
+                                                </div>
+                          </Col>
+                          <Col md={2}>
+                            <div className="form-inputs mb-3">
+                              <label htmlFor="endDate">Trip Ends</label>
+                              <input
+                          id="location"
+                          type="text"
+                          className="   form-control" 
+                          placeholder="Enter a location"
+                          onClick={handleCalendarClick}  // Opens the calendar
+                  // Closes the calendar
+                  value={endDate}
+                  readOnly 
+                        />
+                            </div>
+                          </Col>
+                          <Col md={2}>
+                            <Button className={styles.theme_btn} type="submit" onClick={handleSearch}>
+                              Search Car
+                            </Button>
+                          </Col>
+                        </Row>
+                      </form>
                   </Card.Body>
                 </Card>
               </Col>

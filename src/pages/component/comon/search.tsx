@@ -4,6 +4,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import TimeRangeSlider from "./react"; // Adjust the path as needed
 
+
 interface CalendarComponentProps {
   onDateSelect: (
     selectedRange: { startDate: Date; endDate: Date },
@@ -15,6 +16,9 @@ interface CalendarComponentProps {
 export default function CalendarComponent({ onDateSelect }: CalendarComponentProps) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+
+    // Update on window resize event
 
   const [range, setRange] = useState<Range[]>([
     {
@@ -97,7 +101,7 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
           preventSnapRefocus={true}
           staticRanges={[]}
           inputRanges={[]}
-          className="custom-date-range-picker"
+          className="custom-date-range-picker w-full sm:w-4/6 md:w-3/6 lg:w-2/6 mx-auto"
         />
       </div>
 

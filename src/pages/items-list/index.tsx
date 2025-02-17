@@ -82,7 +82,7 @@ const Index = () => {
     const [itemTypes, setItemTypes] = useState<ItemType[]>([]);
     const [makes, setMakes] = useState<Make[]>([]);
     const [selectedBrands, setSelectedBrands] = useState<Array<number>>([]);
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [selectedCategories] = useState<string[]>([]);
     const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
     const [years, setYears] = useState<string[]>([]);
     const [odometerRanges, setOdometerRanges] = useState<OdometerRange[]>([]);
@@ -93,7 +93,8 @@ const Index = () => {
     const [sortOption, setSortOption] = useState<string>("");
     const { settings } = useAuth();
     const [hasFilterChanged, setHasFilterChanged] = useState(false);
-    
+   
+
     const [activeTab, setActiveTab] = useState<string | null>(null);
     const [activeKeys, setActiveKeys] = useState<string[]>([]);// Open all by default
     
@@ -191,6 +192,7 @@ useEffect(() => {
                     ...response.data.data.nearby_items,
                     ...response.data.data.featured_items,
                     ...response.data.data.new_arrival_items,
+                    
                 ];
 
                 setHomeData(mergedData);
@@ -271,6 +273,7 @@ useEffect(() => {
 
             const response = await api.post("/itemSearch", params);
             const filteredItems = response.data.data.items;
+            console.log(filteredItems);
             setFilteredData(filteredItems);
             setHasFilterChanged(false);
         } catch (error) {
@@ -301,12 +304,7 @@ useEffect(() => {
         });
     };
 
-    const handleCategoryChange = (category: string) => {
-        setSelectedCategories((prev) =>
-            prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
-        );
-    };
-
+    
     const handleFeatureChange = (feature: Feature) => {
         setSelectedFeatures((prev) => {
             const updatedFeatures = prev.some((f) => f.id === feature.id)
@@ -417,32 +415,31 @@ useEffect(() => {
                 <Nav className="flex-column">
                     {itemTypes.map((item) => (
                         <Nav.Item key={item.id}>
-                 <input
-                type="checkbox"
-                id={`filter-${item.id}`}
-                checked={selectedCategories.includes(item.id.toString())}
-                onChange={() => {
-                    // Handle checkbox change logic
-              
-                    const categoryId = `category-${item.id}`;
-                    handleCategoryChange(item.id.toString());
+               <input
+    type="checkbox"
+    id={`filter-${item.id}`}
+    checked={selectedCategories.includes(item.id.toString())}
+    onChange={() => {
+        const categoryId = `category-${item.id}`;
+      
 
+        const tabExists = tabs.some((tab) => tab.id === categoryId);
 
-                    // Prevent adding a duplicate tab
-                    const tabExists = tabs.some((tab) => tab.id === categoryId);
+        if (!selectedCategories.includes(item.id.toString())) {
+            // If the category is newly selected, open the tab
+            if (!tabExists) {
+                setTabs((prevTabs) => [
+                    ...prevTabs,
+                    { id: categoryId, label: `Category: ${item.name}` }
+                ]);
+            }
+        } else {
+            // If unchecked, close the tab
+            handleTabClose(categoryId);
+        }
+    }}
+/>
 
-                    if (!tabExists) {
-                        // Open the tab for this category if it doesn't exist
-                        setTabs((prevTabs) => [
-                            ...prevTabs,
-                            { id: categoryId, label: `Category: ${item.name}` }
-                        ]);
-                    } else {
-                        // Close the tab if unchecked
-                        handleTabClose(categoryId);
-                    }
-                }}
-            />
                             <label htmlFor={`filter-${item.id}`} className="ms-2">
                                 {item.name}
                             </label>

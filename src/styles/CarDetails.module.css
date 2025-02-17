@@ -17,7 +17,10 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.carDetailRating{
+  display: flex;
+  flex-direction: column;
+}
 .carDetailContentHeading  p {
   font-size: 16px;
   color: #9E9E9E;
@@ -25,11 +28,31 @@
   align-items: center;
   gap: 10px;
 }
+.carDetailRating{
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  align-items: flex-start; /* Align items to the left */
+  border: 1px solid #d3d1d1; /* Add a border (optional) */
+  height: 75px;
+  width:100px; /* Add padding (optional) */
+  border-radius: 15px; /* Add rounded corners (optional) */
+}
 
 .carDetailRating p {
-  color: #ffdd3c;
-  font-size: 24px;
+  color: #f6fcf7;
+  font-size: 17px;
   font-weight: bold;
+  background-color:#17BEBB ;
+  height: 35.5px;
+  width: 100px;
+  border-radius: 15px 15px 0 0;
+  padding-left: 10px;
+  padding: 10px;
+}
+.carDetailImage span{
+  font-size: 17px;
+  font-weight: bold;
+  
 }
 
 .carDetailImage img {
@@ -162,11 +185,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #EDEDED;
-  padding: 20px;
+  background-color: #ffffff;
+  
   border-radius: 10px;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .personBox {
@@ -203,6 +226,8 @@
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  
+
 }
 
 .thumbnailWrapper:hover {
@@ -220,6 +245,8 @@
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 10px;
+  
 }
 
 .activeThumbnail {
