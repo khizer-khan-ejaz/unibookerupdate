@@ -5,9 +5,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Image from 'next/image';
 import home from '../../../Images/home.svg';
 import { useState, useRef, useEffect } from 'react';
-import CalendarComponent from '../../component/comon/search';
-import api from '../../api/api'
 
+import api from '../../api/api'
+import dynamic from "next/dynamic";
 interface BreadcrumbsProps {
     parent?: {
         name?: string;
@@ -52,7 +52,9 @@ const Breadcrumbs = ({ parent = {}, currentPage }: BreadcrumbsProps) => {
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
     const [locationClicked, setLocationClicked] = useState<string | undefined>(undefined);
-
+    const CalendarComponent = dynamic(() => import("../../component/comon/search"), {
+        ssr: false, // ✅ Prevents running on the server
+      });
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleDateChange = (selectedRange: { startDate: Date; endDate: Date }) => {

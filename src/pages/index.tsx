@@ -24,10 +24,11 @@ import { useRef } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import CalendarComponent from "./component/comon/search"
+
 import  CarCarousel from "./component/comon/car";
 import api from '../api/api'
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 interface MostViewedItem {
   id: string;
@@ -172,7 +173,11 @@ export default function Home() {
 
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-  
+
+
+const CalendarComponent = dynamic(() => import( "./component/comon/search"), {
+  ssr: false, // ✅ Prevents running on the server
+});
   
     
   
