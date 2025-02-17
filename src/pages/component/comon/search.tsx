@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DateRangePicker, Range } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import TimeRangeSlider from "./react"; // Adjust the path as needed
-
 
 interface CalendarComponentProps {
   onDateSelect: (
@@ -17,9 +16,6 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-
-    // Update on window resize event
-
   const [range, setRange] = useState<Range[]>([
     {
       startDate: today,
@@ -30,6 +26,14 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
 
   const [startTime, setStartTime] = useState<string>("10:00");
   const [endTime, setEndTime] = useState<string>("18:00");
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+
+  // Update screen size dynamically
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const mergeDateWithTime = (date: Date | undefined, time: string): Date | null => {
     if (!date || !time) return null;
@@ -43,12 +47,8 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
     const selectedRange = ranges.selection;
     if (!selectedRange.startDate || !selectedRange.endDate) return;
 
-    if (selectedRange.startDate < today) {
-      selectedRange.startDate = today;
-    }
-    if (selectedRange.endDate < today) {
-      selectedRange.endDate = today;
-    }
+    if (selectedRange.startDate < today) selectedRange.startDate = today;
+    if (selectedRange.endDate < today) selectedRange.endDate = today;
 
     setRange([selectedRange]);
 
@@ -89,24 +89,30 @@ export default function CalendarComponent({ onDateSelect }: CalendarComponentPro
   };
 
   return (
-    <div className="pb-9 absolute right-0 z-20 mt-1 max-w-[920px] border border-gray-100 overflow-hidden rounded-md bg-white shadow-lg">
+    <div
+      className={`pb-9 absolute right-0 z-20 mt-1 max-w-full border border-gray-100 overflow-hidden rounded-md bg-white shadow-lg ${
+        isMobile ? "w-full p-4" : "max-w-[920px]"
+      }`}
+    >
       {/* Date Range Picker */}
-      <div>
+      <div className="w-full flex justify-center">
         <DateRangePicker
           ranges={range}
           onChange={handleDateSelect}
-          months={2}
-          direction="horizontal"
+          months={isMobile ? 1 : 2}
+          direction={isMobile ? "vertical" : "horizontal"}
           minDate={today}
           preventSnapRefocus={true}
           staticRanges={[]}
           inputRanges={[]}
-          className="custom-date-range-picker w-full sm:w-4/6 md:w-3/6 lg:w-2/6 mx-auto"
+          className="custom-date-range-picker w-full"
         />
       </div>
 
       {/* Time Selection (Dual Slider) */}
-      <TimeRangeSlider onTimeChange={handleTimeChange} />
+      <div className="mt-4">
+        <TimeRangeSlider onTimeChange={handleTimeChange} />
+      </div>
     </div>
   );
 }
